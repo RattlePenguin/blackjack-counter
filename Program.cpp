@@ -24,8 +24,8 @@ int main() {
 	while (gameActive) {
 		std::cout << "Dealer hand: " << '\n';
 		std::cout << "Your hand:   " << '\n';
-		
-		
-
+		gameActive = false;
 	}
+
+
 }
