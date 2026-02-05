@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 
+#include "BlackjackGame.hpp"
+
 const int DECK_SIZE { 52 };
 
 class BlackjackGame {

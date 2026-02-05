@@ -27,5 +27,7 @@ int main() {
 		gameActive = false;
 	}
 
+	BlackjackGame game = BlackjackGame();
+
 
 }
