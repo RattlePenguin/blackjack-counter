@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 
 /**
@@ -16,18 +17,27 @@
  *
  */
 
+void playBlackjack();
+
 int main() {
-	std::cout << "How many players at the table?" << '\n';
+	int input {};
+	std::cin >> input;
 
-	bool gameActive = true;
-
-	while (gameActive) {
-		std::cout << "Dealer hand: " << '\n';
-		std::cout << "Your hand:   " << '\n';
-		gameActive = false;
+	switch (input) {
+		case 1:
+			playBlackjack();
+			break;
+		case 2:
+		default:
+			std::cout << "You didn't input anything bruh" << '\n';
+			exit(EXIT_SUCCESS);
 	}
+}
 
-	BlackjackGame game = BlackjackGame();
+void playBlackjack() {
+	std::cout << "How much do you want to bet? ";
+	int bet {};
+	std::cin >> bet;
 
 
 }

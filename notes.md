@@ -1,3 +1,11 @@
+Things to implement
+- Menu selector
+    - Select different options like 1. play blackjack 2. see basic strategy 3. Maybe stats? For now it should just be 1 and 2
+    -
+- Blackjack Game instance
+    - 
+    
+
 Game
 - Cards
 - Dealer
