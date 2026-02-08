@@ -50,48 +50,63 @@ void playBlackjack() {
 
 	// Burn a card
 	shoe.pop_back();
-
-	std::cout << "How much do you want to bet? ";
-	int bet {};
-	std::cin >> bet;
-
-	std::vector<int> dealerHand {}; // First is the down card, second is the up card.
-	std::vector<int> playerHand {};
 	
-	// Deal cards
-	playerHand.emplace_back(shoe.back());
-	shoe.pop_back();
-	dealerHand.emplace_back(shoe.back());
-	shoe.pop_back();
-	playerHand.emplace_back(shoe.back());
-	shoe.pop_back();
-	dealerHand.emplace_back(shoe.back());
-	shoe.pop_back();
+	bool gameActive { true };
+	while (gameActive) {
+		std::cout << "How much do you want to bet? ";
+		int bet {};
+		std::cin >> bet;
 
-	// Show pre-action hands
-	printHands(dealerHand, playerHand, true);
+		std::vector<int> dealerHand {}; // First is the down card, second is the up card.
+		std::vector<int> playerHand {};
+		
+		// Deal cards
+		playerHand.emplace_back(shoe.back());
+		shoe.pop_back();
+		dealerHand.emplace_back(shoe.back());
+		shoe.pop_back();
+		playerHand.emplace_back(shoe.back());
+		shoe.pop_back();
+		dealerHand.emplace_back(shoe.back());
+		shoe.pop_back();
 
-	// Actions
-	char action {};
-	std::cin >> action;
-	switch (action) {
-		case 'h':
-			playerHand.emplace_back(shoe.back());
-			shoe.pop_back();
-			break;
-		case 's':
-			break;
-		case 'd':
-			break;
-		case 't':
-			break;
-		case 'y':
-			break;
-		case 'q':
-			break;
-		case '?':
-		default:
-			std::cout << "h - hit\ns - stand\nd - double down\nt - split\ny - surrender\nq - quit game\n? - show actions\n";
+		bool playersTurn { true };
+		while (playersTurn) {
+			printHands(dealerHand, playerHand, true);
+
+			if (dealerHand[1] == 0) { // ace
+				std::cout << "Insurance not implemented.\n";
+			}
+			
+			// Actions
+			char action {};
+			std::cin >> action;
+			switch (action) {
+				case 'h':
+					playerHand.emplace_back(shoe.back());
+					shoe.pop_back();
+					break;
+				case 's':
+					playersTurn = false;
+					break;
+				case 'd':
+					playerHand.emplace_back(shoe.back());
+					shoe.pop_back();
+					bet *= 2;
+					break;
+				case 't':
+					break;
+				case 'y':
+					break;
+				case 'q':
+					gameActive = false;
+					break;
+				case '?':
+				default:
+					std::cout << "h - hit\ns - stand\nd - double down\nt - split\ny - surrender\nq - quit game\n? - show actions\n";
+			}
+			playersTurn = false;
+		}
 	}
 }
 
