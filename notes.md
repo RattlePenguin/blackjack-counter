@@ -1,11 +1,3 @@
-Things to implement
-- Menu selector
-    - Select different options like 1. play blackjack 2. see basic strategy 3. Maybe stats? For now it should just be 1 and 2
-    -
-- Blackjack Game instance
-    - 
-    
-
 Game
 - Cards
 - Dealer
@@ -23,6 +15,9 @@ Static Rules
 - Min/max bets
 - Dealer stand (H17, S17)
 - Surrender allowed
+    - Late surrender. If dealer has BJ, cannot all players lose (cannot surrender).
+- Insurance asked when dealer has Ace.
+- Dealer peek on 10 or Ace up.
 
 Dynamic
 - Number of Players
