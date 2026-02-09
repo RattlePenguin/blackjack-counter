@@ -74,8 +74,16 @@ void playBlackjack() {
 		while (playersTurn) {
 			printHands(dealerHand, playerHand, true);
 
-			if (dealerHand[1] == 0) { // ace
-				std::cout << "Insurance not implemented.\n";
+			bool insurance = false;
+			if (dealerHand[1] == 0) {
+				std::string input {};
+				while (input != "yes" || input != "no") {
+					std::cout << "Do you want insurance? yes/no\n";
+					std::cin >> input;
+				}
+				if (input == "yes") {
+					insurance = true;
+				}
 			}
 			
 			// Actions
