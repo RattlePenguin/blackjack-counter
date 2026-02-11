@@ -5,7 +5,7 @@
 
 #include "Enums.h"
 
-class Card {
+struct Card {
 	Rank rank;
 	Suit suit;
 	bool faceDown;
