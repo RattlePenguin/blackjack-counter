@@ -11,7 +11,7 @@ struct Card {
 	bool faceDown;
 
 	int getValue() const;
-	int getCountValue() const;
+	int getHiLoValue() const;
 	std::string toString() const;
 };
 

@@ -14,7 +14,7 @@ int Card::getValue() const {
 /**
  *  Returns the value contributing to the running count as per the Hi-Lo counting method.
  */
-int Card::getCountValue() const {
+int Card::getHiLoValue() const {
 	if (rank >= Rank::TWO && rank <= Rank::SIX) return 1;
 	if (rank >= Rank::TEN || rank == Rank::ACE) return -1;
 	return 0;
