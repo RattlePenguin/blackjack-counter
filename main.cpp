@@ -2,7 +2,6 @@
 
 #include "Card.h"
 #include "Shoe.h"
-#include "Enums.h"
 
 int main() {
 	Shoe shoe(2, 0.75);
