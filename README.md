@@ -1,14 +1,22 @@
 # Idea
-Advantage Blackjack is playing Blackjack while holding an advantage (usually 1-2%) over the dealer that allows for positive EV.
+Advantage Blackjack allows the player to hold an advantage (usually 1-2%) over the house that results in positive EV.
+You will win and you will lose. There is no such thing as no losses.
+However, in theory with the right conditions and strategies, one can expect a profit over the house over a long period of time.
 
-This usually has a lot of prerequisites, such as high deck penetration (less decks in play), specific min/max bet amounts, and no auto shuffler.
+This project aims to teach users how to play advantaged blackjack using the hi-lo counting method and basic strategy with deviations. One can find many examples and POVs of blackjack counting on youtube.
 
-This project aims to teach users how to play advantaged blackjack using the hi-lo counting method and perfect basic strategy. One can find many examples of blackjack counting on youtube.
+This usually has a lot of prerequisites, as well as factors that affect the effectiveness of advantageous strategies such as:
+- No Continuous Shuffle Machines (CSM). This makes it impossible to obtain an accurate representation of the deck.
+- Deck penetration. Deeper deck penetration allows the player to see more of the deck throughout the game, allowing for more periods of advantage.
+- Min / max bet amounts. This depends on you, but the goal is to minimise your bet when you do not have an advantage, and increase your bets as you gain advantage.
+
+This is not an exhaustive list, nor does it account for the fact that advantage blackjack requires a lot of focus. This may result in casinos backing you off if they decide that you are counting cards.
 
 # Blackjack Rules
 Better off watching a video for now, I'll fill out this section once the project is more complete.
 
-# Hi-lo Counting Method
+# Guide
+## Hi-lo Counting Method
 This method puts cards in three categories:
 - 2-6 are considered low (+1)
 - 7-9 are considered neutral (0)
@@ -29,7 +37,7 @@ This continues for every subsequent hand in the shoe.
 TC is found by dividing RC by the number of remaining decks in play.
 For example, if RC is +7 and there are about 4 remaining decks in the shoe, then the TC is +7/4 = +1.75. One could round this up to +2 for simplicity.
 
-# Perfect Basic Strategy
+## Basic Strategy
 There are 5 actions you can take as a blackjack player.
 - Hit
     - You tap on the table with your finger. This signals to the dealer that you want to draw another card from the shoe, adding to your hand total. You can hit multiple times.
@@ -46,7 +54,7 @@ Perfect basic strategy involves always picking the most optimal move at every st
 
 When evolving project to web app, maybe a cheatsheet page would be awesome, not sure how to display as a console app.
 
-# Deviations
+## BS Deviations
 Not every blackjack table is the same. Some will hit on a soft 17 (H17) or stand instead (S17), or do something else. The basic strategy chart shown above is based on a commonly seen H17 game.
 
 # Program Details
