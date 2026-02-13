@@ -1,16 +1,22 @@
 #include <random>
 #include <algorithm>
+#include <iostream>
+
 #include "Shoe.h"
 
 const int NUM_SUITS { 4 };
 const int NUM_RANKS { 13 };
+const int NUM_CARDS_IN_DECK { 52 };
 
 /**
  *  Constructor that sets number of decks and penetration limit.
  */
 Shoe::Shoe(int totalDecks, double penetration)
 	: totalDecks { totalDecks }
+	, cardsDealtIndex { 0 }
+	, systemRunningCount { 0 }
 {
+	cutCardIndex = static_cast<int>(totalDecks * NUM_CARDS_IN_DECK * penetration);
 	initialise();
 }
 
@@ -36,15 +42,47 @@ void Shoe::shuffle() {
 	std::random_device rd;
 	std::mt19937 g(rd());
 	std::shuffle(cards.begin(), cards.end(), g);
+
+	cardsDealtIndex = 0;
+	systemRunningCount = 0; // Reset shoe, reset count
+	std::cout << "Shoe has shuffled " << totalDecks << " decks.\n";
 }
 
 /**
- *  Draws a card from the shoe.
- *  If shoe is empty, initialises again (but this shouldn't happen).
+ *  Draws a card from the shoe and updates the system running count.
+ *  If shoe is empty (dealing index past size), initialises again (but this shouldn't happen).
  */
 Card Shoe::draw() {
-	if (cards.empty()) initialise();
-	Card c = cards.back();
-	cards.pop_back();
+	if (cardsDealtIndex >= cards.size()) initialise();
+	Card c = cards[cardsDealtIndex++];
+	systemRunningCount += c.getHiLoValue();
 	return c;
+}
+
+/**
+ *  Returns true if the cut card has been encountered.
+ */
+bool Shoe::needsShuffle() const {
+	return cardsDealtIndex >= cutCardIndex;
+}
+
+/**
+ *  Returns the number of cards remaining in the shoe.
+ */
+int Shoe::getCardsRemaining() const {
+	return cards.size() - cardsDealtIndex;
+}
+
+/**
+ *  Evaluates and returns the number of decks remaining in play.
+ */
+double Shoe::getDecksRemaining() const {
+	return static_cast<double>(getCardsRemaining()) / NUM_CARDS_IN_DECK;
+}
+
+/**
+ *  Getter for systemRunningCount.
+ */
+int Shoe::getSystemRunningCount() const {
+	return systemRunningCount;
 }
