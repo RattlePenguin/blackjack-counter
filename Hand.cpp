@@ -12,37 +12,68 @@ void Hand::addCard(Card c) {
 }
 
 /**
- *  Returns the total value of all cards in the Hand.
- *  For Aces, default value is 11 unless the Hand is over 21.
- *		Aces are individually reduced to value 1 until the Hand is under 21.
+ *  Returns the total value of the Hand, with all Aces at 11.
  */
 int Hand::getTotalValue() const {
 	int total { 0 };
-	int numAces { 0 };
 	for (const Card& c : cards) {
 		total += c.getValue();
+	}
+	return total;
+}
+
+/**
+ *  Returns the number of Aces in the Hand.
+ */
+int Hand::getNumAces() const {
+	int numAces { 0 };
+	for (const Card& c : cards) {
 		if (c.rank == Rank::ACE) ++numAces;
 	}
-	
+	return numAces;
+}
+
+
+/**
+ *  Returns the play value of the Hand.
+ *  I.e. highest possible value under 21. Aces are counted as 11 until they need to be 1.
+ */
+int Hand::getRealValue() const {
+	int total { getTotalValue() };
+	int numAces { getNumAces() };
+
 	while (total > BLACKJACK_VALUE && numAces > 0) {
 		--numAces;
 		total -= ACE_DIFF_VALUE;
 	}
-
 	return total;
+}
 
+/**
+ *  Returns whether the Hand is soft, i.e. an Ace is presently acting as an 11.
+ */
+bool Hand::isSoft() const {
+	int total { getTotalValue() };
+	int numAces { getNumAces() };
+
+	while (total > BLACKJACK_VALUE && numAces > 0) {
+		--numAces;
+		total -= ACE_DIFF_VALUE;
+	}
+	return numAces > 0;
 }
 
 double Hand::getBet() const { return bet; }
 
-bool Hand::isSoft() const;
-bool Hand::isPair() const;
-bool Hand::isBlackjack() const { return getTotalValue() == BLACKJACK_VALUE; }
-bool Hand::isBusted() const;
-bool Hand::isSurrendered() const;
+bool Hand::isPair() const { return cards.size() == 2 && cards[0].rank == cards[1].rank; }
 
-// Setters
-void Hand::surrender();
-void Hand::doubleDown();
-Card Hand::split();
+bool Hand::isBlackjack() const { return cards.size() == 2 && getTotalValue() == BLACKJACK_VALUE; }
+
+bool Hand::isBusted() const { return getRealValue() > 21; }
+
+bool Hand::isSurrendered() const { return surrendered; }
+
+void Hand::surrender() { surrendered = true; }
+void Hand::doubleDown() { isDoubled = true; }
+// Card Hand::split();
 

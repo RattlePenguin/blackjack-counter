@@ -5,16 +5,17 @@
 class Hand {
 public:
 	void addCard(Card c);
-
+	
 	int getTotalValue() const;
-	double getBet() const;
+	int getNumAces() const;
+	int getRealValue() const;
 	bool isSoft() const;
+	double getBet() const;
 	bool isPair() const;
 	bool isBlackjack() const;
 	bool isBusted() const;
 	bool isSurrendered() const;
 
-	// Setters
 	void surrender();
 	void doubleDown();
 	Card split();

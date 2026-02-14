@@ -53,8 +53,8 @@ void Shoe::shuffle() {
  *  If shoe is empty (dealing index past size), initialises again (but this shouldn't happen).
  */
 Card Shoe::draw() {
-	if (cardsDealtIndex >= cards.size()) initialise();
-	Card c = cards[cardsDealtIndex++];
+	if (cardsDealtIndex >= static_cast<int>(cards.size())) initialise();
+	Card c = cards[static_cast<std::vector<Card>::size_type>(cardsDealtIndex++)];
 	systemRunningCount += c.getHiLoValue();
 	return c;
 }
@@ -70,7 +70,7 @@ bool Shoe::needsShuffle() const {
  *  Returns the number of cards remaining in the shoe.
  */
 int Shoe::getCardsRemaining() const {
-	return cards.size() - cardsDealtIndex;
+	return static_cast<int>(cards.size()) - cardsDealtIndex;
 }
 
 /**
