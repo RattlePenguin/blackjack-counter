@@ -1,9 +1,13 @@
+#ifndef HAND_H
+#define HAND_H
+
 #include <vector>
 
 #include "Card.h"
 
 class Hand {
 public:
+	Hand(double initialBet);
 	void addCard(Card c);
 	
 	int getTotalValue() const;
@@ -26,3 +30,5 @@ private:
 	bool surrendered {};
 	bool isDoubled {};
 };
+
+#endif // !HAND_H

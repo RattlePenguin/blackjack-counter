@@ -4,6 +4,9 @@
 const int BLACKJACK_VALUE { 21 };
 const int ACE_DIFF_VALUE { 10 };
 
+// Constructor
+Hand::Hand(double initialBet) : bet { initialBet } {}
+
 /**
  *  Adds a given card to the Hand.
  */

@@ -31,9 +31,9 @@ enum class Rank {
 };
 
 struct Card {
-	Rank rank;
-	Suit suit;
-	bool faceDown;
+	Rank rank { Rank::ACE };
+	Suit suit { Suit::SPADES };
+	bool faceDown { false };
 
 	int getValue() const;
 	int getHiLoValue() const;

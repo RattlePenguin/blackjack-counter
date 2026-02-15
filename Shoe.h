@@ -1,3 +1,6 @@
+#ifndef SHOE_H
+#define SHOE_H
+
 #include <vector>
 
 #include "Card.h"
@@ -20,3 +23,5 @@ private:
 	int cutCardIndex {};
 	int systemRunningCount {};
 };
+
+#endif // !SHOE_H
