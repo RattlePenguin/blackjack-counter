@@ -1,5 +1,5 @@
-#ifndef ENUMS_H
-#define ENUMS_H
+#ifndef BLACKJACKRULES_H
+#define BLACKJACKRULES_H
 
 enum class Action {
 	HIT,
