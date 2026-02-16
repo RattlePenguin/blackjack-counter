@@ -1,5 +1,6 @@
 #include "Hand.h"
 #include "Card.h"
+#include <iostream>
 
 const int BLACKJACK_VALUE { 21 };
 const int ACE_DIFF_VALUE { 10 };
@@ -68,13 +69,22 @@ bool Hand::isSoft() const {
 
 double Hand::getBet() const { return bet; }
 
-bool Hand::isPair() const { return cards.size() == 2 && cards[0].rank == cards[1].rank; }
+bool Hand::isTwoCards() const { return cards.size() == 2; }
 
-bool Hand::isBlackjack() const { return cards.size() == 2 && getTotalValue() == BLACKJACK_VALUE; }
+bool Hand::isPair() const { return isTwoCards() && cards[0].rank == cards[1].rank; }
+
+bool Hand::isBlackjack() const { return isTwoCards() && getTotalValue() == BLACKJACK_VALUE; }
 
 bool Hand::isBusted() const { return getRealValue() > 21; }
 
 bool Hand::isSurrendered() const { return surrendered; }
+
+void Hand::printHand() const {
+	for (const Card& c : cards) {
+		std::cout << c.toString() << ' ';
+	}
+	std::cout << '\n';
+}
 
 void Hand::surrender() { surrendered = true; }
 void Hand::doubleDown() { isDoubled = true; }

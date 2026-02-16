@@ -15,10 +15,12 @@ public:
 	int getRealValue() const;
 	bool isSoft() const;
 	double getBet() const;
-	bool isPair() const;
-	bool isBlackjack() const;
-	bool isBusted() const;
+	bool isTwoCards() const;
+	bool isPair() const; // Returns true if two cards and both same value
+	bool isBlackjack() const; // Must be two cards
+	bool isBusted() const; // RealValue > 21
 	bool isSurrendered() const;
+	void printHand() const;
 
 	void surrender();
 	void doubleDown();
