@@ -3,5 +3,27 @@
 GameEngine::GameEngine(int numDecks, int penetration)
 	: shoe(numDecks, penetration)
 	, dealerHand { nullptr }
-{
+{}
+
+bool GameEngine::dealerShouldHit() {
+	if (dealerHand->getRealValue() >= 17) {
+		if (rules.hitSoft17 && dealerHand->isSoft()) {
+			return true;
+		}
+		return false;
+	}
+	return true;
+}
+
+void GameEngine::addPlayer(Player* p) {
+	players.push_back(p);
+}
+
+void GameEngine::playRound() {
+	// To play a round, you need to
+	// Check deck penetration, reshuffle if necessary
+	// Deal cards
+	// Ask player 1 for decision
+	// ... Clockwise order
+	//
 }

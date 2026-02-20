@@ -18,7 +18,7 @@ private:
 	Hand* dealerHand;
 
 	bool dealerShouldHit();
-	void addPlayer(Player& player);
+	void addPlayer(Player* player);
 	void playRound();
 	void resolveRound();
 };

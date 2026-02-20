@@ -72,5 +72,4 @@ These (deviations) simply make more money than just basic strategy.
 
 An example chart can be found [here](https://www.blackjackapprenticeship.com/wp-content/uploads/2019/07/BJA_H17.pdf)
 
-# Glossary
-- Shoe:
+# [Glossary](https://www.blackjackapprenticeship.com/glossary-of-blackjack-terms/)
