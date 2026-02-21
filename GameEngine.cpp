@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "GameEngine.h"
 
 GameEngine::GameEngine(int numDecks, int penetration)
@@ -22,6 +24,10 @@ void GameEngine::addPlayer(Player* p) {
 void GameEngine::playRound() {
 	// To play a round, you need to
 	// Check deck penetration, reshuffle if necessary
+	if (shoe.needsShuffle()) {
+		std::cout << "[Dealer] Shuffling the shoe...\n";
+		shoe.shuffle();
+	}
 	// Deal cards
 	// Ask player 1 for decision
 	// ... Clockwise order
