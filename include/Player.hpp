@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "Hand.h"
+#include "Hand.hpp"
 
 class Player {
 public:

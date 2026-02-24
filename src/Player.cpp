@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "Hand.h"
+#include "Player.hpp"
+#include "Hand.hpp"
 #include <string>
 
 // Constructor

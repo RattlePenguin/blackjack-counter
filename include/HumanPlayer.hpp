@@ -3,9 +3,9 @@
 
 #include <string>
 
-#include "Hand.h"
-#include "Player.h"
-#include "BlackjackRules.h"
+#include "Hand.hpp"
+#include "Player.hpp"
+#include "BlackjackRules.hpp"
 
 class HumanPlayer : public Player  {
 public:

@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "Shoe.h"
-#include "BlackjackRules.h"
-#include "Hand.h"
-#include "Player.h"
+#include "Shoe.hpp"
+#include "BlackjackRules.hpp"
+#include "Hand.hpp"
+#include "Player.hpp"
 
 class GameEngine {
 public:

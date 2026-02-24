@@ -1,8 +1,8 @@
 #include <cstdlib>
 
-#include "HumanPlayer.h"
-#include "BlackjackRules.h"
-#include "Card.h"
+#include "HumanPlayer.hpp"
+#include "BlackjackRules.hpp"
+#include "Card.hpp"
 
 void testMakeDecision() {
 	HumanPlayer player { HumanPlayer("Allan") };

@@ -1,4 +1,4 @@
-#include "HumanPlayer.h"
+#include "HumanPlayer.hpp"
 #include <iostream>
 
 HumanPlayer::HumanPlayer(std::string name) : Player(name) {}

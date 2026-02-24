@@ -1,5 +1,5 @@
-#include "Hand.h"
-#include "Card.h"
+#include "Hand.hpp"
+#include "Card.hpp"
 #include <iostream>
 
 const int BLACKJACK_VALUE { 21 };

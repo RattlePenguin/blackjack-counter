@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "Card.h"
-#include "Shoe.h"
-#include "Hand.h"
+#include "Card.hpp"
+#include "Shoe.hpp"
+#include "Hand.hpp"
 
 int main() {
 	Shoe shoe(2, 0.75);

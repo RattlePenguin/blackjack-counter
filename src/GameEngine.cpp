@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "GameEngine.h"
+#include "GameEngine.hpp"
 
 GameEngine::GameEngine(int numDecks, int penetration)
 	: shoe(numDecks, penetration)

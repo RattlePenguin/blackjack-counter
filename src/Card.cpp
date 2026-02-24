@@ -1,5 +1,5 @@
 #include <string>
-#include "Card.h"
+#include "Card.hpp"
 
 /**
  *  Returns the value of the card as per Blackjack rules.

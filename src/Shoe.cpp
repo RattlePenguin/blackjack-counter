@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "Shoe.h"
+#include "Shoe.hpp"
 
 /**
  *  Constructor that sets number of decks and penetration limit.

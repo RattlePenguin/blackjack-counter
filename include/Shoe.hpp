@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Card.h"
+#include "Card.hpp"
 
 class Shoe {
 public:
