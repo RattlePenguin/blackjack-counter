@@ -8,6 +8,8 @@
 
 class Player {
 public:
+	std::vector<Hand> hands {};
+
 	Player(std::string name);
 	
 	void clearHands();
@@ -18,7 +20,6 @@ public:
 
 private:
 	std::string name {};
-	std::vector<Hand> hands {};
 	double bankroll {};
 };
 
