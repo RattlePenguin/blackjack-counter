@@ -10,11 +10,13 @@ public:
 	Hand(double initialBet);
 	void addCard(Card c);
 	
+	std::vector<Card>& getCards();
 	int getTotalValue() const;
 	int getNumAces() const;
 	int getRealValue() const;
-	bool isSoft() const;
 	double getBet() const;
+
+	bool isSoft() const;
 	bool isTwoCards() const;
 	bool isPair() const; // Returns true if two cards and both same value
 	bool isBlackjack() const; // Must be two cards

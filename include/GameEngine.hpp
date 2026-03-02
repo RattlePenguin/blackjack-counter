@@ -20,6 +20,7 @@ private:
 	bool dealerShouldHit();
 	void addPlayer(Player* player);
 	void playRound();
+	void startHands();
 	void resolveRound();
 };
 

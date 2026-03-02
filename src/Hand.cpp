@@ -16,6 +16,11 @@ void Hand::addCard(Card c) {
 }
 
 /**
+ *  Accessor for cards
+ */
+std::vector<Card>& Hand::getCards() { return cards; }
+
+/**
  *  Returns the total value of the Hand, with all Aces at 11.
  */
 int Hand::getTotalValue() const {
@@ -53,6 +58,8 @@ int Hand::getRealValue() const {
 	return total;
 }
 
+double Hand::getBet() const { return bet; }
+
 /**
  *  Returns whether the Hand is soft, i.e. an Ace is presently acting as an 11.
  */
@@ -66,8 +73,6 @@ bool Hand::isSoft() const {
 	}
 	return numAces > 0;
 }
-
-double Hand::getBet() const { return bet; }
 
 bool Hand::isTwoCards() const { return cards.size() == 2; }
 
