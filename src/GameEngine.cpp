@@ -27,6 +27,9 @@ void GameEngine::playRound() {
 		shoe.shuffle();
 	}
 
+}
+
+void GameEngine::startHands() {
 	dealerHand = new Hand(0); // Dealer has no bet
 	
 	// Deal 1 card to players then dealer, then repeat. Dealer up then downcard.
@@ -40,6 +43,14 @@ void GameEngine::playRound() {
 			// Deal to the LAST hand of the player (since they only have 1 right now)
 			p->hands.back().addCard(shoe.draw());
 		}
-		dealerHand->addCard(shoe.draw());
+
+		if (i == 0) {
+			dealerHand->addCard(shoe.draw());
+		} else {
+			Card downCard = shoe.draw();
+			downCard.faceDown = true;
+			dealerHand->addCard(downCard);
+		}
 	}
+
 }
