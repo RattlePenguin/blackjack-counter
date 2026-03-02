@@ -22,13 +22,26 @@ void GameEngine::addPlayer(Player* p) {
 }
 
 void GameEngine::playRound() {
+	// Check and shuffle shoe.
 	if (shoe.needsShuffle()) {
 		std::cout << "[Dealer] Shuffling the shoe...\n";
 		shoe.shuffle();
 	}
 
+	startHands();
+
+	Card dealerUpCard = dealerHand->getCards()[0]; // First card is the up card
+	
+	if (dealerUpCard.rank == Rank::ACE) {
+		std::cout << "[Dealer] Ace showing. Insurance? Y/N\n";
+	}
+	// Clockwise, ask players for decisions and finish their game before moving to next player.
 }
 
+/**
+ *  Deals hands for all players and the dealer.
+ *  Creates a new Hand pointer for dealerHand.
+ */
 void GameEngine::startHands() {
 	dealerHand = new Hand(0); // Dealer has no bet
 	
