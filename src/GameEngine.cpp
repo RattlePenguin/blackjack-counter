@@ -35,7 +35,28 @@ void GameEngine::playRound() {
 	if (dealerUpCard.rank == Rank::ACE) {
 		std::cout << "[Dealer] Ace showing. Insurance? Y/N\n";
 	}
+
+	if (dealerHand->isBlackjack()) {
+		std::cout << "[Dealer] shows Blackjack.\n";
+		resolveRound();
+		return;
+	}
+
 	// Clockwise, ask players for decisions and finish their game before moving to next player.
+	for (auto* p : players) {
+		// Iterate over all hands, dynamic sizing allows splitting
+		for (int i = 0; i < p->hands.size(); ++i) {
+			bool handFinished { false };
+			while (!handFinished) {
+				Hand& currentHand { p->hands[i] };
+
+				if (currentHand.isBusted()) {
+					handFinished = true;
+					continue;
+				}
+			}
+		}
+	}
 }
 
 /**
