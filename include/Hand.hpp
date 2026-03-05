@@ -21,6 +21,7 @@ public:
 	bool isPair() const; // Returns true if two cards and both same value
 	bool isBlackjack() const; // Must be two cards
 	bool isBusted() const; // RealValue > 21
+	bool is21() const;
 	bool isSurrendered() const;
 	void printHand() const;
 

@@ -44,15 +44,44 @@ void GameEngine::playRound() {
 
 	// Clockwise, ask players for decisions and finish their game before moving to next player.
 	for (auto* p : players) {
-		// Iterate over all hands, dynamic sizing allows splitting
+		// Iterate over all hands, dynamic sizing to allow splitting
 		for (int i = 0; i < p->hands.size(); ++i) {
+			Hand& currentHand { p->hands[i] };
 			bool handFinished { false };
 			while (!handFinished) {
-				Hand& currentHand { p->hands[i] };
-
 				if (currentHand.isBusted()) {
+					std::cout << "---> BUSTED\n";
 					handFinished = true;
 					continue;
+				}
+
+				if (currentHand.is21()) {
+					handFinished = true;
+					continue;
+				}
+
+				Action action { p->makeDecision(currentHand, dealerUpCard, rules) };
+
+				switch (action) {
+					case Action::HIT:
+						std::cout << "---> HIT\n";
+						currentHand.addCard(shoe.draw());
+						break;
+					case Action::STAND:
+						std::cout << "---> STAND\n";
+						handFinished = true;
+						break;
+					case Action::DOUBLE:
+						std::cout << "---> DOUBLE DOWN\n";
+						currentHand.doubleDown();
+						currentHand.addCard(shoe.draw());
+						handFinished = true;
+						break;
+					case Action::SPLIT:
+						std::cout << "---> SPLIT\n";
+						currentHand.split();
+					case Action::SURRENDER:
+						std::cout << "---> SURRENDER\n";
 				}
 			}
 		}

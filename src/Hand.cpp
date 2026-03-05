@@ -82,6 +82,8 @@ bool Hand::isBlackjack() const { return isTwoCards() && getTotalValue() == BLACK
 
 bool Hand::isBusted() const { return getRealValue() > 21; }
 
+bool Hand::is21() const { return getRealValue() == 21; }
+
 bool Hand::isSurrendered() const { return surrendered; }
 
 void Hand::printHand() const {
@@ -92,6 +94,10 @@ void Hand::printHand() const {
 }
 
 void Hand::surrender() { surrendered = true; }
+
 void Hand::doubleDown() { isDoubled = true; }
-// Card Hand::split();
+
+Card Hand::split() {
+	// TODO
+}
 

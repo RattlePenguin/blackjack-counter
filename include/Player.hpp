@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Hand.hpp"
+#include "BlackjackRules.hpp"
 
 class Player {
 public:
@@ -17,6 +18,8 @@ public:
 
 	std::string getName() const;
 	double getBankroll() const;
+
+	virtual Action makeDecision(const Hand& currentHand, Card dealerUpCard, const BlackjackRules& rules) = 0;
 
 private:
 	std::string name {};

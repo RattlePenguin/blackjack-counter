@@ -11,11 +11,10 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, Card dealerUpCard, con
 	bool isTwoCards { currentHand.isTwoCards() };
 	bool isPair { currentHand.isPair() };
 	
-	// Print Hands. This should be moved to more central, like game engine.
+	// Print Hands.
 	std::cout << "Dealer shows: " << dealerUpCard.toString() << '\n';
 	std::cout << "Your Hand: ";
 	currentHand.printHand();
-
 	std::cout << '\n';
 	
 	while (true) {
