@@ -79,13 +79,27 @@ void GameEngine::playRound() {
 						break;
 					case Action::SPLIT:
 						std::cout << "---> SPLIT\n";
-						currentHand.split();
+						p->startNewHand(currentHand.getBet());
+						p->hands.back().addCard(currentHand.split());
+
+						currentHand.addCard(shoe.draw());
+						p->hands.back().addCard(shoe.draw());
+
+						if (currentHand.getCards()[0].rank == Rank::ACE) handFinished = true;
+						break;
 					case Action::SURRENDER:
 						std::cout << "---> SURRENDER\n";
+						handFinished = true;
+						break;
 				}
 			}
 		}
 	}
+
+	// Dealer's turn
+	std::cout << "\n[Dealer]'s Turn\n";
+	dealerHand->getCards().back().faceDown = false;
+	dealerHand->printHand();
 }
 
 /**

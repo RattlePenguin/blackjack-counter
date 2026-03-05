@@ -98,6 +98,8 @@ void Hand::surrender() { surrendered = true; }
 void Hand::doubleDown() { isDoubled = true; }
 
 Card Hand::split() {
-	// TODO
+	Card splitCard { cards.back() };
+	cards.pop_back();
+	return splitCard;
 }
 
