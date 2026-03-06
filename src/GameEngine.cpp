@@ -111,6 +111,13 @@ void GameEngine::playRound() {
 	std::cout << "\n[Dealer]'s Turn\n";
 	dealerHand->getCards().back().faceDown = false;
 	dealerHand->printHand();
+
+	while (dealerShouldHit()) {
+		Card c = shoe.draw();
+		std::cout << "[Dealer] hits: " << c.toString() << '\n';
+		dealerHand->addCard(c);
+	}
+	std::cout << "[Dealer] Total: " << dealerHand->getRealValue() << '\n';
 }
 
 /**
