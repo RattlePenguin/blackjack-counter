@@ -86,6 +86,12 @@ bool Hand::is21() const { return getRealValue() == 21; }
 
 bool Hand::isSurrendered() const { return surrendered; }
 
+bool Hand::isDoubled() const { return doubled; }
+
+bool Hand::isSplitHand() const { return isSplit; }
+
+bool Hand::isFinished() const { return finished; }
+
 void Hand::printHand() const {
 	for (const Card& c : cards) {
 		std::cout << c.toString() << ' ';
@@ -95,7 +101,7 @@ void Hand::printHand() const {
 
 void Hand::surrender() { surrendered = true; }
 
-void Hand::doubleDown() { isDoubled = true; }
+void Hand::doubleDown() { doubled = true; }
 
 Card Hand::split() {
 	Card splitCard { cards.back() };
@@ -103,3 +109,4 @@ Card Hand::split() {
 	return splitCard;
 }
 
+void Hand::finish() { finished = true; }

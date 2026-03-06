@@ -7,6 +7,10 @@ GameEngine::GameEngine(int numDecks, int penetration)
 	, dealerHand { nullptr }
 {}
 
+GameEngine::~GameEngine() {
+	delete dealerHand;
+}
+
 bool GameEngine::dealerShouldHit() {
 	if (dealerHand->getRealValue() >= 17) {
 		if (rules.hitSoft17 && dealerHand->isSoft()) {
@@ -30,7 +34,7 @@ void GameEngine::playRound() {
 
 	startHands();
 
-	Card dealerUpCard = dealerHand->getCards()[0]; // First card is the up card
+	Card dealerUpCard = dealerHand->getCards().front(); // First card is the up card
 	
 	if (dealerUpCard.rank == Rank::ACE) {
 		std::cout << "[Dealer] Ace showing. Insurance? Y/N\n";
@@ -47,16 +51,16 @@ void GameEngine::playRound() {
 		// Iterate over all hands, dynamic sizing to allow splitting
 		for (int i = 0; i < p->hands.size(); ++i) {
 			Hand& currentHand { p->hands[i] };
-			bool handFinished { false };
-			while (!handFinished) {
+			while (!currentHand.isFinished()) {
 				if (currentHand.isBusted()) {
 					std::cout << "---> BUSTED\n";
-					handFinished = true;
+					currentHand.finish();
 					continue;
 				}
 
 				if (currentHand.is21()) {
-					handFinished = true;
+					std::cout << "---> 21\n";
+					currentHand.finish();
 					continue;
 				}
 
@@ -69,27 +73,34 @@ void GameEngine::playRound() {
 						break;
 					case Action::STAND:
 						std::cout << "---> STAND\n";
-						handFinished = true;
+						currentHand.finish();
 						break;
 					case Action::DOUBLE:
 						std::cout << "---> DOUBLE DOWN\n";
 						currentHand.doubleDown();
 						currentHand.addCard(shoe.draw());
-						handFinished = true;
+						currentHand.finish();
 						break;
-					case Action::SPLIT:
+					case Action::SPLIT: {
 						std::cout << "---> SPLIT\n";
-						p->startNewHand(currentHand.getBet());
-						p->hands.back().addCard(currentHand.split());
-
+						Hand splitHand { p->startNewHand(currentHand.getBet()) };
+						Card splitCard { currentHand.split() };
+						splitHand.addCard(splitCard);
+						
+						// Hit each hand
 						currentHand.addCard(shoe.draw());
-						p->hands.back().addCard(shoe.draw());
-
-						if (currentHand.getCards()[0].rank == Rank::ACE) handFinished = true;
+						splitHand.addCard(shoe.draw());
+						
+						// Split Aces get one card only.
+						if (splitCard.rank == Rank::ACE) {
+							currentHand.finish();
+							splitHand.finish();
+						}
 						break;
+					}
 					case Action::SURRENDER:
 						std::cout << "---> SURRENDER\n";
-						handFinished = true;
+						currentHand.finish();
 						break;
 				}
 			}

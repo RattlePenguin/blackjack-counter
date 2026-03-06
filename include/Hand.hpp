@@ -23,17 +23,23 @@ public:
 	bool isBusted() const; // RealValue > 21
 	bool is21() const;
 	bool isSurrendered() const;
+	bool isDoubled() const;
+	bool isSplitHand() const;
+	bool isFinished() const;
 	void printHand() const;
 
 	void surrender();
 	void doubleDown();
 	Card split();
+	void finish();
 
 private:
 	std::vector<Card> cards {};
 	double bet {};
 	bool surrendered {};
-	bool isDoubled {};
+	bool doubled {};
+	bool isSplit {};
+	bool finished {};
 };
 
 #endif // !HAND_H

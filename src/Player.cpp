@@ -7,8 +7,9 @@ Player::Player(std::string name) : name { name } {}
 
 void Player::clearHands() { hands.clear(); }
 
-void Player::startNewHand(double bet) {
+Hand Player::startNewHand(double bet) {
 	hands.push_back(Hand(bet));
+	return hands.back();
 }
 
 std::string Player::getName() const { return name; }

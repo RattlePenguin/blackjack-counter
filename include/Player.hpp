@@ -14,7 +14,7 @@ public:
 	Player(std::string name);
 	
 	void clearHands();
-	void startNewHand(double bet);
+	Hand startNewHand(double bet);
 
 	std::string getName() const;
 	double getBankroll() const;

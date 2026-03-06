@@ -11,6 +11,7 @@
 class GameEngine {
 public:
 	GameEngine(int numDecks, int penetration);
+	~GameEngine();
 private:
 	Shoe shoe;
 	BlackjackRules rules {};
