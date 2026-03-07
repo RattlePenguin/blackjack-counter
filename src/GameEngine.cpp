@@ -118,6 +118,8 @@ void GameEngine::playRound() {
 		dealerHand->addCard(c);
 	}
 	std::cout << "[Dealer] Total: " << dealerHand->getRealValue() << '\n';
+
+	resolveRound();
 }
 
 /**
@@ -148,4 +150,16 @@ void GameEngine::startHands() {
 		}
 	}
 
+}
+
+/**
+ *  Hands have finished, handle payouts.
+ *  Players modify their own bankrolls for profit/loss.
+*/
+void GameEngine::resolveRound() {
+	for (auto* p : players) {
+		for (const Hand& h : p->hands) {
+			// do payout here
+		}
+	}
 }
