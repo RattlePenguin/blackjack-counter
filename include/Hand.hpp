@@ -19,7 +19,7 @@ public:
 	bool isSoft() const;
 	bool isTwoCards() const;
 	bool isPair() const; // Returns true if two cards and both same value
-	bool isBlackjack() const; // Must be two cards
+	bool isBlackjack() const; // Must be two cards, cannot be a split hand
 	bool isBusted() const; // RealValue > 21
 	bool is21() const;
 	bool isSurrendered() const;
@@ -30,8 +30,13 @@ public:
 
 	void surrender();
 	void doubleDown();
-	Card split();
+	void split();
+	Card pop_back();
 	void finish();
+
+	double win() const;
+	double push() const;
+	double lose() const;
 
 private:
 	std::vector<Card> cards {};

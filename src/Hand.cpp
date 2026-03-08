@@ -78,7 +78,7 @@ bool Hand::isTwoCards() const { return cards.size() == 2; }
 
 bool Hand::isPair() const { return isTwoCards() && cards[0].rank == cards[1].rank; }
 
-bool Hand::isBlackjack() const { return isTwoCards() && getTotalValue() == BLACKJACK_VALUE; }
+bool Hand::isBlackjack() const { return isTwoCards() && !isSplit && getTotalValue() == BLACKJACK_VALUE; }
 
 bool Hand::isBusted() const { return getRealValue() > 21; }
 
@@ -103,10 +103,16 @@ void Hand::surrender() { surrendered = true; }
 
 void Hand::doubleDown() { doubled = true; }
 
-Card Hand::split() {
-	Card splitCard { cards.back() };
+void Hand::split() { isSplit = true; }
+
+Card Hand::pop_back() {
+	Card card { cards.back() };
 	cards.pop_back();
-	return splitCard;
+	return card;
 }
 
 void Hand::finish() { finished = true; }
+
+double Hand::win() const { return bet; }
+double Hand::push() const { return 0; }
+double Hand::lose() const { return -bet; }

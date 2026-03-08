@@ -37,7 +37,7 @@ void GameEngine::playRound() {
 	Card dealerUpCard = dealerHand->getCards().front(); // First card is the up card
 	
 	if (dealerUpCard.rank == Rank::ACE) {
-		std::cout << "[Dealer] Ace showing. Insurance? Y/N\n";
+		std::cout << "[Dealer] Ace showing. Insurance? Y/N INCOMPLETE\n";
 	}
 
 	if (dealerHand->isBlackjack()) {
@@ -84,8 +84,10 @@ void GameEngine::playRound() {
 					case Action::SPLIT: {
 						std::cout << "---> SPLIT\n";
 						Hand splitHand { p->startNewHand(currentHand.getBet()) };
-						Card splitCard { currentHand.split() };
+						Card splitCard { currentHand.pop_back() };
 						splitHand.addCard(splitCard);
+						currentHand.split();
+						splitHand.split();
 						
 						// Hit each hand
 						currentHand.addCard(shoe.draw());
@@ -157,9 +159,14 @@ void GameEngine::startHands() {
  *  Players modify their own bankrolls for profit/loss.
 */
 void GameEngine::resolveRound() {
+	bool dealerBlackjack { dealerHand->isBlackjack() };
+
 	for (auto* p : players) {
 		for (const Hand& h : p->hands) {
-			// do payout here
+			if (dealerBlackjack) {
+				if (h.isBlackjack()) {
+				}
+			}
 		}
 	}
 }
