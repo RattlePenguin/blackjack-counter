@@ -15,3 +15,5 @@ Hand Player::startNewHand(double bet) {
 std::string Player::getName() const { return name; }
 double Player::getBankroll() const { return bankroll; }
 
+void Player::win(double bet) { bankroll += bet; }
+void Player::lose(double bet) { bankroll -= bet; }

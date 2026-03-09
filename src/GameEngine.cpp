@@ -49,8 +49,8 @@ void GameEngine::playRound() {
 	// Clockwise, ask players for decisions and finish their game before moving to next player.
 	for (auto* p : players) {
 		// Iterate over all hands, dynamic sizing to allow splitting
-		for (int i = 0; i < p->hands.size(); ++i) {
-			Hand& currentHand { p->hands[i] };
+		for (int i = 0; i < static_cast<int>(p->hands.size()); ++i) {
+			Hand& currentHand { p->hands[static_cast<size_t>(i)] };
 			while (!currentHand.isFinished()) {
 				if (currentHand.isBusted()) {
 					std::cout << "---> BUSTED\n";

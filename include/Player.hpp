@@ -21,6 +21,9 @@ public:
 
 	virtual Action makeDecision(const Hand& currentHand, Card dealerUpCard, const BlackjackRules& rules) = 0;
 
+	void win(double bet);
+	void lose(double bet);
+
 private:
 	std::string name {};
 	double bankroll {};

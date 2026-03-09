@@ -6,7 +6,7 @@
 
 int main() {
 	Shoe shoe(2, 0.75);
-	
+
 	Hand hand(100);
 	hand.addCard(shoe.draw());
 	std::cout << "Total: " << hand.getTotalValue() << '\n';

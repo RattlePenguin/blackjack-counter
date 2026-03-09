@@ -113,6 +113,3 @@ Card Hand::pop_back() {
 
 void Hand::finish() { finished = true; }
 
-double Hand::win() const { return bet; }
-double Hand::push() const { return 0; }
-double Hand::lose() const { return -bet; }

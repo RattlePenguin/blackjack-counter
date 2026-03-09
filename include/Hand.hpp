@@ -34,10 +34,6 @@ public:
 	Card pop_back();
 	void finish();
 
-	double win() const;
-	double push() const;
-	double lose() const;
-
 private:
 	std::vector<Card> cards {};
 	double bet {};

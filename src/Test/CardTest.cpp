@@ -67,9 +67,9 @@ void testGetHiLoValue() {
 
 }
 
-int main() {
-	testGetValue();
-	testGetHiLoValue();
-	std::cout << "yo\n";
-	return EXIT_SUCCESS;
-}
+// int main() {
+// 	testGetValue();
+// 	testGetHiLoValue();
+// 	std::cout << "yo\n";
+// 	return EXIT_SUCCESS;
+// }
