@@ -164,8 +164,21 @@ void GameEngine::resolveRound() {
 	for (auto* p : players) {
 		for (const Hand& h : p->hands) {
 			if (dealerBlackjack) {
-				if (h.isBlackjack()) {
+				if (!h.isBlackjack()) {
+					p->lose(h.getBet());
 				}
+				continue; // push otherwise
+			}
+
+			if (h.isBlackjack()) { // dealer doesn't have blackjack here
+				p->win(h.getBet());
+				continue;
+			}
+
+			if (dealerHand->getRealValue() < h.getRealValue()) {
+				p->win(h.getBet());
+			} else if (dealerHand->getRealValue() < h.getRealValue()) {
+				p->lose(h.getBet());
 			}
 		}
 	}
