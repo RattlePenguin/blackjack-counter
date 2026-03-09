@@ -2,7 +2,7 @@
 
 #include "GameEngine.hpp"
 
-GameEngine::GameEngine(int numDecks, int penetration)
+GameEngine::GameEngine(int numDecks, double penetration)
 	: shoe(numDecks, penetration)
 	, dealerHand { nullptr }
 {}

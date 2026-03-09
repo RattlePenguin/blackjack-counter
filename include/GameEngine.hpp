@@ -10,8 +10,11 @@
 
 class GameEngine {
 public:
-	GameEngine(int numDecks, int penetration);
+	GameEngine(int numDecks, double penetration);
 	~GameEngine();
+
+	void addPlayer(Player* player);
+	void playRound();
 private:
 	Shoe shoe;
 	BlackjackRules rules {};
@@ -19,8 +22,6 @@ private:
 	Hand* dealerHand;
 
 	bool dealerShouldHit();
-	void addPlayer(Player* player);
-	void playRound();
 	void startHands();
 	void resolveRound();
 };

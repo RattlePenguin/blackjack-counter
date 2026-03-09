@@ -2,8 +2,8 @@
 #include "Hand.hpp"
 #include <string>
 
-// Constructor
 Player::Player(std::string name) : name { name } {}
+Player::~Player() {}
 
 void Player::clearHands() { hands.clear(); }
 

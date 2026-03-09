@@ -12,6 +12,7 @@ public:
 	std::vector<Hand> hands {};
 
 	Player(std::string name);
+	virtual ~Player();
 	
 	void clearHands();
 	Hand startNewHand(double bet);
