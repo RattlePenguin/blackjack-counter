@@ -11,12 +11,6 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, Card dealerUpCard, con
 	bool isTwoCards { currentHand.isTwoCards() };
 	bool isPair { currentHand.isPair() };
 	
-	// Print Hands.
-	std::cout << "Dealer shows: " << dealerUpCard.toString() << '\n';
-	std::cout << "Your Hand: ";
-	currentHand.printHand();
-	std::cout << '\n';
-	
 	while (true) {
 		std::cout << "h: hit\n";
 		std::cout << "s: stand\n";
