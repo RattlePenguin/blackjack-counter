@@ -7,7 +7,7 @@ HumanPlayer::HumanPlayer(std::string name) : Player(name) {}
  *  Returns the HumanPlayer's Action depending on user input.
  *  Verifies whether or not action is valid.
  */
-Action HumanPlayer::makeDecision(const Hand& currentHand, Card dealerUpCard, const BlackjackRules& rules) {
+Action HumanPlayer::makeDecision(const Hand& currentHand, const BlackjackRules& rules) {
 	bool isTwoCards { currentHand.isTwoCards() };
 	bool isPair { currentHand.isPair() };
 	

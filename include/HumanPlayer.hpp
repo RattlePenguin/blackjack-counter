@@ -10,7 +10,7 @@
 class HumanPlayer : public Player  {
 public:
 	HumanPlayer(std::string name);
-	Action makeDecision(const Hand& currentHand, Card dealerUpCard, const BlackjackRules& rules);
+	Action makeDecision(const Hand& currentHand, const BlackjackRules& rules);
 };
 
 #endif // !HUMANPLAYER_H

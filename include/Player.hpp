@@ -20,7 +20,7 @@ public:
 	std::string getName() const;
 	double getBankroll() const;
 
-	virtual Action makeDecision(const Hand& currentHand, Card dealerUpCard, const BlackjackRules& rules) = 0;
+	virtual Action makeDecision(const Hand& currentHand, const BlackjackRules& rules) = 0;
 
 	void win(double bet);
 	void lose(double bet);

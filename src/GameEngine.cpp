@@ -63,8 +63,8 @@ void GameEngine::playRound() {
 					currentHand.finish();
 					continue;
 				}
-
-				Action action { p->makeDecision(currentHand, dealerUpCard, rules) };
+				
+				Action action { p->makeDecision(currentHand, rules) };
 
 				switch (action) {
 					case Action::HIT:

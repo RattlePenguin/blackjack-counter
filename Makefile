@@ -28,4 +28,4 @@ $(BUILD_DIR)/%.o: %.cpp
 
 # Clean up build files
 clean:
-	rm -rf $(BUILD_DIR) $(TARGET)
+	rm -rf $(BUILD_DIR)/* $(TARGET)
