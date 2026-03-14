@@ -24,6 +24,9 @@ private:
 	bool dealerShouldHit();
 	void startHands();
 	void resolveRound();
+	void printTurn(Hand& hand);
+	void dealerTurn();
+	void clearHands();
 };
 
 #endif // !GAMEENGINE_H

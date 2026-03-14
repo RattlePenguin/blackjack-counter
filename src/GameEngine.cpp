@@ -52,18 +52,26 @@ void GameEngine::playRound() {
 		for (int i = 0; i < static_cast<int>(p->hands.size()); ++i) {
 			Hand& currentHand { p->hands[static_cast<size_t>(i)] };
 			while (!currentHand.isFinished()) {
+				printTurn(currentHand);
+
 				if (currentHand.isBusted()) {
 					std::cout << "---> BUSTED\n";
 					currentHand.finish();
-					continue;
+					break;
+				}
+
+				if (currentHand.isBlackjack()) {
+					std::cout << "---> BLACKJACK!\n";
+					currentHand.finish();
+					break;
 				}
 
 				if (currentHand.is21()) {
 					std::cout << "---> 21\n";
 					currentHand.finish();
-					continue;
+					break;
 				}
-				
+
 				Action action { p->makeDecision(currentHand, rules) };
 
 				switch (action) {
@@ -102,6 +110,7 @@ void GameEngine::playRound() {
 					}
 					case Action::SURRENDER:
 						std::cout << "---> SURRENDER\n";
+						// TODO HANDLE BETS
 						currentHand.finish();
 						break;
 				}
@@ -109,18 +118,7 @@ void GameEngine::playRound() {
 		}
 	}
 
-	// Dealer's turn
-	std::cout << "\n[Dealer]'s Turn\n";
-	dealerHand->getCards().back().faceDown = false;
-	dealerHand->printHand();
-
-	while (dealerShouldHit()) {
-		Card c = shoe.draw();
-		std::cout << "[Dealer] hits: " << c.toString() << '\n';
-		dealerHand->addCard(c);
-	}
-	std::cout << "[Dealer] Total: " << dealerHand->getRealValue() << '\n';
-
+	dealerTurn();
 	resolveRound();
 }
 
@@ -162,9 +160,19 @@ void GameEngine::resolveRound() {
 	bool dealerBlackjack { dealerHand->isBlackjack() };
 
 	for (auto* p : players) {
+		std::cout << p->getName() << " results\n";
 		for (const Hand& h : p->hands) {
+			std::cout << "Hand: ";
+			h.printHand();
+			if (h.isBusted()) {
+				std::cout << "Lost " << h.getBet();
+				p->lose(h.getBet());
+				continue;
+			}
+
 			if (dealerBlackjack) {
 				if (!h.isBlackjack()) {
+					std::cout << "Lost " << h.getBet();
 					p->lose(h.getBet());
 				}
 				continue; // push otherwise
@@ -172,14 +180,18 @@ void GameEngine::resolveRound() {
 
 			if (h.isBlackjack()) { // dealer doesn't have blackjack here
 				p->win(h.getBet());
+				std::cout << "Won " << h.getBet();
 				continue;
 			}
 
 			if (dealerHand->getRealValue() < h.getRealValue()) {
 				p->win(h.getBet());
-			} else if (dealerHand->getRealValue() < h.getRealValue()) {
+				std::cout << "Won " << h.getBet();
+			} else if (dealerHand->getRealValue() > h.getRealValue()) {
 				p->lose(h.getBet());
+				std::cout << "Lost " << h.getBet();
 			}
+			// push
 		}
 	}
 }
