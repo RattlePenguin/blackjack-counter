@@ -157,28 +157,32 @@ void GameEngine::startHands() {
  *  Players modify their own bankrolls for profit/loss.
 */
 void GameEngine::resolveRound() {
-	bool dealerBlackjack { dealerHand->isBlackjack() };
+	bool dBlackjack { dealerHand->isBlackjack() };
 
 	for (auto* p : players) {
 		std::cout << p->getName() << " results\n";
 		for (const Hand& h : p->hands) {
 			std::cout << "Hand: ";
 			h.printHand();
+
 			if (h.isBusted()) {
 				std::cout << "Lost " << h.getBet();
 				p->lose(h.getBet());
 				continue;
 			}
 
-			if (dealerBlackjack) {
-				if (!h.isBlackjack()) {
-					std::cout << "Lost " << h.getBet();
-					p->lose(h.getBet());
-				}
-				continue; // push otherwise
+			if (dealerHand->isBusted()) {
+				std::cout << "Win " << h.getBet();
+				p->win(h.getBet());
+				continue;
 			}
-
-			if (h.isBlackjack()) { // dealer doesn't have blackjack here
+			
+			// Natural blackjacks win
+			if (dBlackjack && !h.isBlackjack()) {
+				std::cout << "Lost " << h.getBet();
+				p->lose(h.getBet());
+				continue;
+			} else if (!dBlackjack && h.isBlackjack()) {
 				p->win(h.getBet());
 				std::cout << "Won " << h.getBet();
 				continue;
