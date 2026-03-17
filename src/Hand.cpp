@@ -93,8 +93,9 @@ bool Hand::isSplitHand() const { return isSplit; }
 bool Hand::isFinished() const { return finished; }
 
 void Hand::printHand() const {
-	for (const Card& c : cards) {
-		std::cout << c.toString() << ' ';
+	std::cout << cards.front().toString();
+	for (int i = 1; i < static_cast<int>(cards.size()); ++i) {
+		std::cout << ' ' << cards[i].toString();
 	}
 	std::cout << '\n';
 }
