@@ -102,7 +102,10 @@ void Hand::printHand() const {
 
 void Hand::surrender() { surrendered = true; }
 
-void Hand::doubleDown() { doubled = true; }
+void Hand::doubleDown() {
+	doubled = true;
+	bet *= 2;
+}
 
 void Hand::split() { isSplit = true; }
 
