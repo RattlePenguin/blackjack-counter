@@ -3,7 +3,7 @@
 
 #include "GameEngine.hpp"
 
-double parseBet(Player* p);
+double parseBet();
 
 GameEngine::GameEngine(int numDecks, double penetration)
 	: shoe(numDecks, penetration)
@@ -41,8 +41,6 @@ void GameEngine::playRound() {
 		return;
 	}
 
-	Card dealerUpCard = dealerHand->getCards().front(); // First card is the up card
-
 	for (auto* p : players) {
 		// Dynamic sizing to allow splitting
 		for (int i = 0; i < static_cast<int>(p->hands.size()); ++i) {
@@ -64,7 +62,7 @@ void GameEngine::startHands() {
 
 			if (i == 0) {
 				if (j == 0) {
-					p->startNewHand(parseBet(p));
+					p->startNewHand(parseBet());
 				} else {
 					p->startNewHand(10.0);
 				}
@@ -82,19 +80,10 @@ void GameEngine::startHands() {
 	}
 }
 
-void GameEngine::clearHands() {
-	delete dealerHand;
-	dealerHand = nullptr;
-
-	for (auto* p : players) {
-		p->clearHands();
-	}
-}
-
 /**
  *  Parses a string input into a double and returns it.
  */
-double parseBet(Player* p) {
+double parseBet() {
 	double bet { -1 };
     std::string input;
     bool valid = false;
@@ -193,6 +182,30 @@ void GameEngine::doTurn(Player* p, Hand& currentHand) {
 	}
 }
 
+void GameEngine::printTurn(Hand& hand) {
+	std::cout << "[Dealer] Hand: ";
+	dealerHand->printHand();
+	std::cout << "Your Hand: ";
+	hand.printHand();
+}
+
+void GameEngine::dealerTurn() {
+	std::cout << "[Dealer] Hand: ";
+	dealerHand->printHand();
+
+	while (dealerShouldHit()) {
+		std::cout << "---> [Dealer] HITS\n";
+		dealerHand->addCard(shoe.draw());
+		dealerHand->printHand();
+	}
+
+	if (dealerHand->isBusted()) {
+		std::cout << "---> [Dealer] BUSTED\n";
+	} else {
+		std::cout << "---> [Dealer] STANDS\n";
+	}
+}
+
 /**
  *  Hands have finished, handle post game.
  *  Clears hands at the end.
@@ -237,4 +250,13 @@ void GameEngine::resolveRound() {
 		}
 	}
 	clearHands();
+}
+
+void GameEngine::clearHands() {
+	delete dealerHand;
+	dealerHand = nullptr;
+
+	for (auto* p : players) {
+		p->clearHands();
+	}
 }
