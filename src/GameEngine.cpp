@@ -36,7 +36,11 @@ void GameEngine::playRound() {
 	}
 
 	startHands();
-	dealerPreCheck();
+	if (dealerPreCheck()) {
+		resolveRound();
+		return;
+	}
+
 	Card dealerUpCard = dealerHand->getCards().front(); // First card is the up card
 
 	for (auto* p : players) {
@@ -78,6 +82,15 @@ void GameEngine::startHands() {
 	}
 }
 
+void GameEngine::clearHands() {
+	delete dealerHand;
+	dealerHand = nullptr;
+
+	for (auto* p : players) {
+		p->clearHands();
+	}
+}
+
 /**
  *  Parses a string input into a double and returns it.
  */
@@ -106,17 +119,17 @@ double parseBet(Player* p) {
 	return bet;
 }
 
-void GameEngine::dealerPreCheck() {
+bool GameEngine::dealerPreCheck() {
 	if (dealerHand->getCards().front().rank == Rank::ACE) {
 		std::cout << "[Dealer] Ace showing. Insurance? Y/N: ";
 	}
 	
 	// Peek
 	if (rules.lateSurrender && dealerHand->isBlackjack()) {
-		std::cout << "[Dealer] shows Blackjack.\n";
-		resolveRound();
-		return;
+		std::cout << "Late surrender, [Dealer] shows Blackjack.\n";
+		return true;
 	}
+	return false;
 }
 
 void GameEngine::doTurn(Player* p, Hand& currentHand) {
@@ -125,7 +138,13 @@ void GameEngine::doTurn(Player* p, Hand& currentHand) {
 		
 		if (currentHand.getRealValue() > 21) {
 			std::cout << "---> BUSTED\n";
-			currentHand.finish();
+			currentHand.finish(); // TODO Bet should be collected here
+			break;
+		}
+
+		if (currentHand.isBlackjack()) {
+			std::cout << "---> BLACKJACK!\n";
+			currentHand.finish(); // TODO Bet should be paid out here 3:2 odds
 			break;
 		}
 
@@ -175,12 +194,12 @@ void GameEngine::doTurn(Player* p, Hand& currentHand) {
 }
 
 /**
- *  Hands have finished, handle payouts.
- *  Players modify their own bankrolls for profit/loss.
+ *  Hands have finished, handle post game.
+ *  Clears hands at the end.
 */
 void GameEngine::resolveRound() {
 	for (auto* p : players) {
-		std::cout << p->getName() << " results\n";
+		std::cout << "---> " << p->getName() << " results\n";
 		for (const Hand& h : p->hands) {
 			std::cout << "Hand: ";
 			h.printHand();
@@ -190,20 +209,21 @@ void GameEngine::resolveRound() {
 				p->lose(h.getBet());
 				continue;
 			}
-			if (dealerHand->isBusted()) {
-				std::cout << "Win " << h.getBet() << '\n';
-				p->win(h.getBet());
-				continue;
-			}
-			
+
 			// Natural blackjacks win
 			if (dealerHand->isBlackjack() && !h.isBlackjack()) {
 				std::cout << "Lost " << h.getBet() << '\n';
 				p->lose(h.getBet());
 				continue;
 			} else if (!dealerHand->isBlackjack() && h.isBlackjack()) {
-				p->win(h.getBet());
+				std::cout << "Won " << h.getBet() * rules.blackjackPayout << '\n';
+				p->win(h.getBet() * rules.blackjackPayout);
+				continue;
+			}
+
+			if (dealerHand->isBusted()) {
 				std::cout << "Won " << h.getBet() << '\n';
+				p->win(h.getBet());
 				continue;
 			}
 
@@ -216,4 +236,5 @@ void GameEngine::resolveRound() {
 			}
 		}
 	}
+	clearHands();
 }

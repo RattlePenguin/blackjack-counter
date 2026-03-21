@@ -17,6 +17,7 @@ struct BlackjackRules {
 	bool resplitAces { false };
 	bool surrenderAllowed { true };
 	bool lateSurrender { true };
+	double blackjackPayout { 1.5 };
 };
 
 #endif

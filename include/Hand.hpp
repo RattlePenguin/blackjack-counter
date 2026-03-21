@@ -29,8 +29,21 @@ public:
 	void printHand() const;
 
 	void surrender();
+
+	/**
+	 *  Doubles the bet.
+	 */
 	void doubleDown();
+
+	/**
+	 *  Sets the isSplit field to true.
+	 *  Does NOT modify the Hand.
+	 */
 	void split();
+
+	/**
+	 *  Returns the Card at the back of the Hand, and removes it from the Hand.
+	 */
 	Card pop_back();
 	void finish();
 

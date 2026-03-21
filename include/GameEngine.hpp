@@ -48,9 +48,10 @@ private:
 	void clearHands();
 
 	/**
-	 *  Performs insurance checks on Ace up, natural blackjack peeks and handles late surrender.
+	 *  Asks insurance on Ace up, natural blackjack peeks and handles late surrender.
+	 *  Returns true if dealer has blackjack and game should end, else false.
 	 */
-	void dealerPreCheck();
+	bool dealerPreCheck();
 
 
 	/**
