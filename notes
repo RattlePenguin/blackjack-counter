@@ -1,5 +1,5 @@
-Move the print hand from makeDecision to per turn. Then make it printTurn instead.
 Dealer shouldn't still play turn after player busts.
+Bugs on standard gameplay loop. A lot of printing issues, maybe replace all \n with endl for now.
 
 Format prints better, more spaces and between turns.
 

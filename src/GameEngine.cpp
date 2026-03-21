@@ -190,6 +190,8 @@ void GameEngine::printTurn(Hand& hand) {
 }
 
 void GameEngine::dealerTurn() {
+	dealerHand->getCards().back().faceDown = false;
+
 	std::cout << "[Dealer] Hand: ";
 	dealerHand->printHand();
 
