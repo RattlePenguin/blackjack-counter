@@ -7,9 +7,23 @@
 
 class Shoe {
 public:
+	/**
+	 *  Constructor that sets number of decks and penetration limit.
+	 */
 	Shoe(int totalDecks, double penetration);
+
+	/**
+	 *  Resets the cards in the shoe based on numDecks and shuffles them.
+	 */
 	void initialise();
+
+
+	/**
+	 *  Shuffles the shoe.
+	 */
 	void shuffle();
+
+
 	Card draw();
 	bool needsShuffle() const;
 	int getCardsRemaining() const;
