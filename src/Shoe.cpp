@@ -4,9 +4,6 @@
 
 #include "Shoe.hpp"
 
-/**
- *  Constructor that sets number of decks and penetration limit.
- */
 Shoe::Shoe(int totalDecks, double penetration)
 	: totalDecks { totalDecks }
 	, cardsDealtIndex { 0 }
@@ -16,9 +13,6 @@ Shoe::Shoe(int totalDecks, double penetration)
 	initialise();
 }
 
-/**
- *  Resets the cards in the shoe based on numDecks and shuffles them.
- */
 void Shoe::initialise() {
 	cards.clear();
 	for (int d = 0; d < totalDecks; ++d) {
@@ -31,9 +25,6 @@ void Shoe::initialise() {
 	shuffle();
 }
 
-/**
- *  Shuffles the shoe.
- */
 void Shoe::shuffle() {
 	std::random_device rd;
 	std::mt19937 g(rd());

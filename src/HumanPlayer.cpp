@@ -20,15 +20,15 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const BlackjackRules& 
 
 		std::string input {};
 		std::cin >> input;
-		if (input == "h") {
+		if (input == "h" || input == "H") {
 			return Action::HIT;
-		} else if (input == "s") {
+		} else if (input == "s" || input == "S") {
 			return Action::STAND;
-		} else if (input == "d" && isTwoCards) {
+		} else if ((input == "d" || input == "D") && isTwoCards) {
 			return Action::DOUBLE;
-		} else if (input == "t" && isPair) {
+		} else if ((input == "t" || input == "T") && isPair) {
 			return Action::SPLIT;
-		} else if (input == "y" && isTwoCards) {
+		} else if ((input == "y" || input == "Y") && isTwoCards) {
 			return Action::SURRENDER;
 		}
 		std::cout << "Invalid Action!\n";

@@ -1,6 +1,9 @@
 #include <iostream>
+#include <sstream>
 
 #include "GameEngine.hpp"
+
+double parseBet(Player* p);
 
 GameEngine::GameEngine(int numDecks, double penetration)
 	: shoe(numDecks, penetration)
@@ -26,7 +29,7 @@ void GameEngine::addPlayer(Player* p) {
 }
 
 void GameEngine::playRound() {
-	// Check and shuffle shoe.
+	// Shuffle shoe if necessary.
 	if (shoe.needsShuffle()) {
 		std::cout << "[Dealer] Shuffling the shoe...\n";
 		shoe.shuffle();
@@ -36,12 +39,11 @@ void GameEngine::playRound() {
 	dealerPreCheck();
 	Card dealerUpCard = dealerHand->getCards().front(); // First card is the up card
 
-	// Clockwise, ask players for decisions and finish their game before moving to next player.
 	for (auto* p : players) {
-		// Iterate over all hands, dynamic sizing to allow splitting
+		// Dynamic sizing to allow splitting
 		for (int i = 0; i < static_cast<int>(p->hands.size()); ++i) {
 			Hand& currentHand { p->hands[static_cast<size_t>(i)] };
-			doTurn(currentHand);
+			doTurn(p, currentHand);
 		}
 	}
 
@@ -49,21 +51,20 @@ void GameEngine::playRound() {
 	resolveRound();
 }
 
-/**
- *  Deals hands for all players and the dealer.
- *  Creates a new Hand pointer for dealerHand.
- */
 void GameEngine::startHands() {
 	dealerHand = new Hand(0); // Dealer has no bet
 	
-	// Deal 1 card to players then dealer, then repeat. Dealer up then downcard.
 	for (int i = 0; i < 2; ++i) {
-		for (auto* p : players) {
+		for (int j = 0; j < static_cast<int>(players.size()); ++j) {
+			Player* p = players[j];
+
 			if (i == 0) {
-				 // For now, fixed bet of 10.
-				 p->startNewHand(10.0); 
+				if (j == 0) {
+					p->startNewHand(parseBet(p));
+				} else {
+					p->startNewHand(10.0);
+				}
 			}
-			// Deal to the LAST hand of the player (since they only have 1 right now)
 			p->hands.back().addCard(shoe.draw());
 		}
 
@@ -75,12 +76,39 @@ void GameEngine::startHands() {
 			dealerHand->addCard(downCard);
 		}
 	}
+}
 
+/**
+ *  Parses a string input into a double and returns it.
+ */
+double parseBet(Player* p) {
+	double bet { -1 };
+    std::string input;
+    bool valid = false;
+    while (!valid) {
+		std::cout << "Enter your bet: ";
+        std::getline(std::cin, input);
+
+        std::stringstream ss(input);
+        if (ss >> bet) {
+            // Check if there are any non-whitespace characters left in the stringstream
+            // (e.g., if the user entered "123abc")
+            char remaining;
+            if (ss >> remaining) {
+                std::cout << "Invalid input." << std::endl;
+            } else {
+                valid = true;
+            }
+        } else {
+            std::cout << "Invalid input." << std::endl;
+        }
+    }
+	return bet;
 }
 
 void GameEngine::dealerPreCheck() {
 	if (dealerHand->getCards().front().rank == Rank::ACE) {
-		std::cout << "[Dealer] Ace showing. Insurance? Y/N INCOMPLETE\n";
+		std::cout << "[Dealer] Ace showing. Insurance? Y/N: ";
 	}
 	
 	// Peek
@@ -91,11 +119,11 @@ void GameEngine::dealerPreCheck() {
 	}
 }
 
-void doTurn(Hand& currentHand) {
+void GameEngine::doTurn(Player* p, Hand& currentHand) {
 	while (!currentHand.isFinished()) {
 		printTurn(currentHand);
 		
-		if (currentHand.getRealValue() >= 21) {
+		if (currentHand.getRealValue() > 21) {
 			std::cout << "---> BUSTED\n";
 			currentHand.finish();
 			break;
