@@ -1,5 +1,6 @@
 Dealer shouldn't still play turn after player busts.
 Bugs on standard gameplay loop. A lot of printing issues, maybe replace all \n with endl for now.
+Sometimes card doesn't print, maybe because of the empty string I put?
 
 Format prints better, more spaces and between turns.
 

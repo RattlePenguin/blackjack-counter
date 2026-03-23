@@ -21,6 +21,6 @@ int Card::getHiLoValue() const {
 
 std::string Card::toString() const {
 	if (faceDown) return "[XX]";
-	std::string rankChar[] { "", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+	std::string rankChar[] { "THIS SHOULD NOT BE PRINTED: 0 RANK CARD", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 	return rankChar[static_cast<int>(rank)];
 }
