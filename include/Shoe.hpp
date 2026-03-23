@@ -9,11 +9,12 @@ class Shoe {
 public:
 	/**
 	 *  Constructor that sets number of decks and penetration limit.
+	 *  Seed can be given to produce fixed output, 0 is random.
 	 */
-	Shoe(int totalDecks, double penetration);
+	Shoe(int totalDecks, double penetration, unsigned int seed);
 
 	/**
-	 *  Resets the cards in the shoe based on numDecks and shuffles them.
+	 *  Resets the cards in the shoe based on numDecks and shuffles them randomly or based on the seed field.
 	 */
 	void initialise();
 
@@ -31,6 +32,7 @@ public:
 	int getSystemRunningCount() const;
 
 private:
+	unsigned int seed {};
 	std::vector<Card> cards {};
 	int totalDecks {};
 	int cardsDealtIndex {};

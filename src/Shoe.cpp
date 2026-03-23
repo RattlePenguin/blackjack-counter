@@ -4,10 +4,11 @@
 
 #include "Shoe.hpp"
 
-Shoe::Shoe(int totalDecks, double penetration)
+Shoe::Shoe(int totalDecks, double penetration, unsigned int seed = 0)
 	: totalDecks { totalDecks }
 	, cardsDealtIndex { 0 }
 	, systemRunningCount { 0 }
+	, seed { seed }
 {
 	cutCardIndex = static_cast<int>(totalDecks * NUM_CARDS_IN_DECK * penetration);
 	initialise();
@@ -26,8 +27,7 @@ void Shoe::initialise() {
 }
 
 void Shoe::shuffle() {
-	std::random_device rd;
-	std::mt19937 g(rd());
+	std::mt19937 g(seed == 0 ? std::random_device{}() : seed);
 	std::shuffle(cards.begin(), cards.end(), g);
 
 	cardsDealtIndex = 0;
