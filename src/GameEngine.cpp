@@ -5,8 +5,8 @@
 
 double parseBet();
 
-GameEngine::GameEngine(int numDecks, double penetration)
-	: shoe(numDecks, penetration)
+GameEngine::GameEngine(int numDecks, double penetration, unsigned int seed)
+	: shoe(numDecks, penetration, seed)
 	, dealerHand { nullptr }
 {}
 

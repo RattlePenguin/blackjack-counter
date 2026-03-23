@@ -9,7 +9,7 @@ int main() {
     std::cout << "========================================\n\n";
 
     // Initialize the engine with 2 decks, 75% pen
-    GameEngine engine(2, 0.75);
+    GameEngine engine(2, 0.75, 1);
 
     // Create our user. We dynamically allocate this so it matches the Player* // expected by engine.addPlayer(). 
     // Note: If you separated HumanPlayer into HumanPlayer.h, make sure to #include it!

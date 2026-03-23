@@ -5,10 +5,10 @@
 #include "Shoe.hpp"
 
 Shoe::Shoe(int totalDecks, double penetration, unsigned int seed = 0)
-	: totalDecks { totalDecks }
+	: seed { seed }
+	, totalDecks { totalDecks }
 	, cardsDealtIndex { 0 }
 	, systemRunningCount { 0 }
-	, seed { seed }
 {
 	cutCardIndex = static_cast<int>(totalDecks * NUM_CARDS_IN_DECK * penetration);
 	initialise();

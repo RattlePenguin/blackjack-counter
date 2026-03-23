@@ -10,7 +10,7 @@
 
 class GameEngine {
 public:
-	GameEngine(int numDecks, double penetration);
+	GameEngine(int numDecks, double penetration, unsigned int seed);
 	~GameEngine();
 	
 	/**
