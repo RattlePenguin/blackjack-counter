@@ -219,7 +219,7 @@ void GameEngine::resolveRound() {
 			std::cout << "Hand: ";
 			h.printHand();
 
-			if (h.isBusted()) {
+			if (h.isSurrendered() || h.isBusted()) {
 				std::cout << "Lost " << h.getBet() << '\n';
 				p->lose(h.getBet());
 				continue;

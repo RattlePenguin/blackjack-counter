@@ -100,7 +100,10 @@ void Hand::printHand() const {
 	std::cout << '\n';
 }
 
-void Hand::surrender() { surrendered = true; }
+void Hand::surrender() {
+	surrendered = true;
+	bet *= 0.5;
+}
 
 void Hand::doubleDown() {
 	doubled = true;
