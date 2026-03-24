@@ -36,6 +36,8 @@ void GameEngine::playRound() {
 	}
 
 	startHands();
+	printHands();
+	std::cout << '\n';
 	if (dealerPreCheck()) {
 		resolveRound();
 		return;
@@ -89,7 +91,7 @@ double parseBet() {
     bool valid = false;
     while (!valid) {
 		std::cout << "Enter your bet: ";
-        std::getline(std::cin, input);
+        std::getline(std::cin >> std::ws, input);
 
         std::stringstream ss(input);
         if (ss >> bet) {
@@ -108,6 +110,15 @@ double parseBet() {
 	return bet;
 }
 
+void GameEngine::printHands() {
+	std::cout << "[Dealer] Hand: ";
+	dealerHand->printHand();
+	for (auto* p : players) {
+		std::cout << p->getName() << " Hands: ";
+		for (const auto& h : p->hands) h.printHand();
+	}
+}
+
 bool GameEngine::dealerPreCheck() {
 	if (dealerHand->getCards().front().rank == Rank::ACE) {
 		std::cout << "[Dealer] Ace showing. Insurance? Y/N: ";
@@ -122,17 +133,18 @@ bool GameEngine::dealerPreCheck() {
 }
 
 void GameEngine::doTurn(Player* p, Hand& currentHand) {
+	std::cout << "--- " << p->getName() << " TURN ---\n";
 	while (!currentHand.isFinished()) {
 		printTurn(currentHand);
 		
 		if (currentHand.getRealValue() > 21) {
-			std::cout << "---> BUSTED\n";
+			std::cout << "---> BUSTED\n\n";
 			currentHand.finish(); // TODO Bet should be collected here
 			break;
 		}
 
 		if (currentHand.isBlackjack()) {
-			std::cout << "---> BLACKJACK!\n";
+			std::cout << "---> BLACKJACK!\n\n";
 			currentHand.finish(); // TODO Bet should be paid out here 3:2 odds
 			break;
 		}
@@ -179,6 +191,7 @@ void GameEngine::doTurn(Player* p, Hand& currentHand) {
 				currentHand.finish();
 				break;
 		}
+		std::cout << '\n';
 	}
 }
 
@@ -190,6 +203,8 @@ void GameEngine::printTurn(Hand& hand) {
 }
 
 void GameEngine::dealerTurn() {
+	std::cout << "--- [Dealer] TURN ---\n";
+
 	dealerHand->getCards().back().faceDown = false;
 
 	std::cout << "[Dealer] Hand: ";
@@ -199,6 +214,7 @@ void GameEngine::dealerTurn() {
 		std::cout << "---> [Dealer] HITS\n";
 		dealerHand->addCard(shoe.draw());
 		dealerHand->printHand();
+		std::cout << '\n';
 	}
 
 	if (dealerHand->isBusted()) {

@@ -39,13 +39,11 @@ private:
 	 *  Creates a new Hand pointer for dealerHand.
 	 */
 	void startHands();
-	
+
 	/**
-	 *  Clears hands for each player and the dealer.
-	 *  Postcondition:
-	 *		dealerHand == nullptr
+	 *  Prints all hands currently in play.
 	 */
-	void clearHands();
+	void printHands();
 
 	/**
 	 *  Asks insurance on Ace up, natural blackjack peeks and handles late surrender.
@@ -75,6 +73,13 @@ private:
 	 *  Called after every player's hand is finished.
 	 */
 	void dealerTurn();
+
+	/**
+	 *  Clears hands for each player and the dealer.
+	 *  Postcondition:
+	 *		dealerHand == nullptr
+	 */
+	void clearHands();
 };
 
 #endif // !GAMEENGINE_H
