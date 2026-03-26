@@ -19,7 +19,10 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const BlackjackRules& 
 		if (rules.surrenderAllowed && isTwoCards) std::cout << "y: surrender\n";
 
 		std::string input {};
-		std::cin >> input;
+		if (!std::getline(std::cin >> std::ws, input)) {
+			return Action::STAND;
+		}
+
 		if (input == "h" || input == "H") {
 			return Action::HIT;
 		} else if (input == "s" || input == "S") {

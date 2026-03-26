@@ -91,7 +91,9 @@ double parseBet() {
     bool valid = false;
     while (!valid) {
 		std::cout << "Enter your bet: ";
-        std::getline(std::cin >> std::ws, input);
+        if (!std::getline(std::cin >> std::ws, input)) {
+			return 0.0;
+		}
 
         std::stringstream ss(input);
         if (ss >> bet) {
