@@ -42,16 +42,19 @@ void GameEngine::playRound() {
 		resolveRound();
 		return;
 	}
-
+	
+	bool allBusted { true };
 	for (auto* p : players) {
 		// Dynamic sizing to allow splitting
 		for (int i = 0; i < static_cast<int>(p->hands.size()); ++i) {
 			Hand& currentHand { p->hands[static_cast<size_t>(i)] };
-			doTurn(p, currentHand);
+			if (doTurn(p, currentHand)) allBusted = false;
 		}
 	}
 
-	dealerTurn();
+	if (!allBusted) {
+		dealerTurn();
+	}
 	resolveRound();
 }
 
@@ -134,19 +137,21 @@ bool GameEngine::dealerPreCheck() {
 	return false;
 }
 
-void GameEngine::doTurn(Player* p, Hand& currentHand) {
+bool GameEngine::doTurn(Player* p, Hand& currentHand) {
 	std::cout << "--- " << p->getName() << " TURN ---\n";
+	bool busted { false };
 	while (!currentHand.isFinished()) {
 		printTurn(currentHand);
 		
 		if (currentHand.getRealValue() > 21) {
-			std::cout << "---> BUSTED\n\n";
+			std::cout << "---> BUSTED\n";
+			busted = true;
 			currentHand.finish(); // TODO Bet should be collected here
 			break;
 		}
 
 		if (currentHand.isBlackjack()) {
-			std::cout << "---> BLACKJACK!\n\n";
+			std::cout << "---> BLACKJACK!\n";
 			currentHand.finish(); // TODO Bet should be paid out here 3:2 odds
 			break;
 		}
@@ -195,6 +200,7 @@ void GameEngine::doTurn(Player* p, Hand& currentHand) {
 		}
 		std::cout << '\n';
 	}
+	return !busted;
 }
 
 void GameEngine::printTurn(Hand& hand) {
@@ -212,12 +218,17 @@ void GameEngine::dealerTurn() {
 	std::cout << "[Dealer] Hand: ";
 	dealerHand->printHand();
 
+
+	if (dealerHand->isBlackjack()) std::cout << "---> [Dealer] BLACKJACK!\n";
+
 	while (dealerShouldHit()) {
 		std::cout << "---> [Dealer] HITS\n";
 		dealerHand->addCard(shoe.draw());
 		dealerHand->printHand();
 		std::cout << '\n';
 	}
+
+	if (dealerHand->is21()) std::cout << "---> [Dealer] GOT 21!\n";
 
 	if (dealerHand->isBusted()) {
 		std::cout << "---> [Dealer] BUSTED\n";

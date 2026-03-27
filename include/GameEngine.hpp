@@ -54,8 +54,9 @@ private:
 
 	/**
 	 *  Plays out the given hand.
+	 *  Returns true if currentHand is safe (not busted), else false.
 	 */
-	void doTurn(Player* p, Hand& currentHand);
+	bool doTurn(Player* p, Hand& currentHand);
 
 	/**
 	 *  Resolves round after all hands have been played.
