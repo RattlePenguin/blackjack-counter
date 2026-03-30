@@ -1,75 +1,228 @@
-# Installation
-```
-git clone
+# Blackjack Advantage Trainer
+
+A C++ based blackjack trainer designed to teach advantage play techniques including card counting (Hi-Lo method) and basic strategy with deviations.
+
+## Overview
+
+This project simulates a realistic blackjack environment to help users practice and master advantage blackjack techniques.
+The trainer focuses on teaching the Hi-Lo counting method and basic strategy to give players a mathematical edge over the house.
+
+In a classic game of Blackjack, playing perfect basic strategy reduces the house edge to 0.5\%.
+Counting cards is required to tip advantage over to the player instead.
+
+## Key Features
+
+- **Full Blackjack Simulation**: Complete game with standard rules
+- **Hi-Lo Card Counting**: Track running and true counts
+- **Interactive Gameplay**: Make real-time decisions (Hit, Stand, Double, Split, Surrender)
+- **Bankroll Management**: Track your profit/loss over sessions
+- **Configurable Rules**: Adjustable deck count, penetration, and game rules
+- **Educational Focus**: Learn advantage play techniques
+
+## Prerequisites
+
+- **C++17 compatible compiler** (GCC 7+, Clang 5+, MSVC 2019+)
+- **Make** or **CMake** for building
+- **GoogleTest** (optional, for running unit tests)
+
+## 🛠️ Installation
+
+### Clone the Repository
+
+```bash
+git clone git@github.com:RattlePenguin/blackjack-counter.git
 cd blackjack-counter
 ```
 
-To run the program:
+### Build with Make
+
+```bash
+make clean    # Clean previous builds
+make          # Build the project
 ```
 
+### Build with CMake
+
+```bash
+mkdir build
+cd build
+cmake ..
+make
 ```
 
-# Premise
-Advantage Blackjack allows the player to hold an advantage (usually 1-2%) over the house that results in positive EV.
-In theory with the right conditions and strategies, one can expect a profit over the house over a long period of time.
-However, you will win and you will lose. There is no such thing as no losses.
+## Usage
 
-This project aims to teach users how to play advantaged blackjack using the hi-lo counting method and basic strategy with deviations.
-One can find many examples and POVs of blackjack counting on youtube.
+### Running the Game
 
-# Game Conditions
-Card counting usually has a lot of prerequisites, and factors that affect profitability such as:
-- No Continuous Shuffle Machines (CSM). This makes it impossible to obtain an accurate representation of the deck for counting.
-- Deck penetration. Deeper deck penetration allows the player to see more of the deck throughout the game, which may allow for longer periods of advantage.
-- Min / max bet amounts. This depends on you, but the goal is to minimise your bet when you do not have an advantage, and increase your bets as you gain advantage.
+After building, run the executable:
 
-This is not an exhaustive list, nor does it account for the fact that advantage blackjack requires a lot of focus.
-This may result in casinos backing you off if they decide that you are counting cards.
-
-# Blackjack Rules
-[Blackjack](https://en.wikipedia.org/wiki/Blackjack)
-
-# Strategies
-## Hi-lo Counting Method
-Cards are placed in three categories:
-- 2-6 are considered low (+1)
-- 7-9 are considered neutral (0)
-- 10-A are considered high (-1)
-
-To count cards, there are two values to keep track of. The running count (RC) and true count (TC).
-
-RC is found by adding up the frequencies of each category of card.
-
-If the first 10 cards to be dealt are:
-- `K, 10, 3, 6, 2, 7, 7, A, J, A`
-
-Then the RC =
-```-1 - 1 + 1 + 1 + 1 + 0 + 0 - 1 - 1 - 1
-   = -2
+```bash
+./blackjack_trainer
 ```
 
-TC is found by dividing RC by the number of remaining decks in play.
-For example, if RC is +7 and there are about 4 remaining decks in the shoe, then the TC is +7/4 = +1.75.
-One could round this up to +2 for simplicity.
+### Gameplay Commands
 
-The higher the TC, the higher the chances of encountering "high" cards. This could increase your odds of a blackjack or a good hand.
+During your turn, you'll be presented with options:
+
+| Command | Action | Description |
+|---------|--------|-------------|
+| `h` | Hit | Request another card |
+| `s` | Stand | End your turn |
+| `d` | Double Down | Double your bet and receive one more card (available on first two cards) |
+| `t` | Split | Split a pair into two separate hands (available when dealt a pair) |
+| `y` | Surrender | Forfeit half your bet (available on first two cards) |
+
+### Example Session
+
+```
+========================================
+  Blackjack Advantage Trainer - v0.1
+========================================
+
+Shoe has shuffled 2 decks.
+
+--- Round 1 ---
+Enter your bet: 10
+
+[Dealer] Hand: 4 [XX]
+CardCounter99 Hands: 6 10
+
+--- CardCounter99 TURN ---
+[Dealer] Hand: 4 [XX]
+Your Hand: 6 10
+h: hit
+s: stand
+d: double down
+y: surrender
+> s
+---> STAND
+
+[Dealer] Hand: 4 10
+---> [Dealer] HITS
+[Dealer] Hand: 4 10 5
+---> [Dealer] STANDS
+
+---> CardCounter99 results
+Hand: 6 10
+Lost 10
+
+Play another round? (Y/N):
+```
+
+## Hi-Lo Counting Method
+
+The Hi-Lo system assigns values to cards:
+- **2-6**: +1 (Low cards)
+- **7-9**: 0 (Neutral cards)
+- **10-A**: -1 (High cards)
+
+**Running Count (RC)**: The cumulative total of card values dealt.
+
+**True Count (TC)**: Running count divided by remaining decks. This normalizes the count for multi-deck games.
+
+Example:
+```
+Cards dealt: K, 10, 3, 6, 2, 7, 7, A, J, A
+RC = -1 -1 +1 +1 +1 +0 +0 -1 -1 -1 = -2
+```
 
 ## Basic Strategy
-Basic strategy involves picking the optimal move at every stage of the game.
-This is usually done by referring to charts that have been vetted thousands of times.
-An example can be seen [here](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/).
 
-Playing perfect basic strategy reduces the house edge to 0.5\%.
+Basic strategy provides the mathematically optimal play for every hand combination.
+Following basic strategy reduces the house edge to approximately 0.5\%.
 
-Not every blackjack table is the same.
-Some dealers may hit on a soft 17 (H17) or otherwise, and may or may not allow surrendering.
-Make sure to use the correct basic strategy chart for your ruleset.
+**Key Principles:**
+- Always hit on 8 or less
+- Stand on 17 or more (unless soft)
+- Double down on 11 against dealer 2-10
+- Split Aces and 8s
+- Never split 10s or 5s
 
-## Basic Strategy Deviations
-With card counting, some moves change in basic strategy.
-For example, you may want to stand in situations you normally hit if the count is too high.
-These (deviations) simply make more money than just basic strategy.
+### Strategy Deviations
 
-An example chart can be found [here](https://www.blackjackapprenticeship.com/wp-content/uploads/2019/07/BJA_H17.pdf)
+When the true count is high (more high cards remaining), adjust your strategy:
+- Stand on hands you would normally hit
+- Take insurance when TC is high
+- Increase bet size as advantage increases
 
-# [Glossary](https://www.blackjackapprenticeship.com/glossary-of-blackjack-terms/)
+## Game Configuration
+
+The game uses these default settings (configurable in code):
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Decks | 2 | Number of decks in the shoe |
+| Penetration | 75% | How deep into the shoe before reshuffle |
+| Hit Soft 17 | Yes | Dealer hits on soft 17 |
+| Double After Split | Yes | Can double after splitting |
+| Resplit Aces | No | Cannot re-split aces |
+| Surrender | Yes | Late surrender allowed |
+| Blackjack Payout | 3:2 | Standard 1.5x payout |
+
+## Project Structure
+
+```
+blackjack-counter/
+├── include/              # Header files
+│   ├── BlackjackRules.hpp
+│   ├── Card.hpp
+│   ├── GameEngine.hpp
+│   ├── Hand.hpp
+│   ├── HumanPlayer.hpp
+│   ├── Player.hpp
+│   └── Shoe.hpp
+├── src/                  # Source files
+│   ├── Card.cpp
+│   ├── GameEngine.cpp
+│   ├── Hand.cpp
+│   ├── HumanPlayer.cpp
+│   ├── Player.cpp
+│   ├── Shoe.cpp
+│   └── Test/            # Test files
+├── tests/               # GoogleTest files
+│   └── unit/
+├── CMakeLists.txt       # CMake configuration
+├── Makefile            # Make configuration
+├── main.cpp            # Entry point
+└── README.md           # This file
+```
+
+## Testing
+
+### Running Unit Tests
+
+If you have GoogleTest installed:
+
+```bash
+# Build tests
+mkdir build && cd build
+cmake ..
+make tests
+
+# Run tests
+./tests/blackjack_tests
+```
+
+### Test Coverage (WIP)
+
+The test suite covers:
+- Card value calculations (Hi-Lo)
+- Hand value computation (including soft/hard hands)
+- Blackjack detection
+- Bust detection
+- Split and double down mechanics
+- Shoe shuffling and card counting
+
+## Known Issues
+
+- Input handling may have edge cases with piped input
+- Dealer may incorrectly play after all players bust
+- Some formatting inconsistencies in output
+
+## Additional Resources
+
+- [Blackjack Apprenticeship](https://www.blackjackapprenticeship.com/) - Comprehensive training resources
+- [Wizard of Odds - Blackjack](https://wizardofodds.com/games/blackjack/) - Mathematical analysis
+- [Basic Strategy Charts](https://www.blackjackapprenticeship.com/blackjack-strategy-charts/)
+- [Hi-Lo Deviation Charts](https://www.blackjackapprenticeship.com/wp-content/uploads/2019/07/BJA_H17.pdf)
+
