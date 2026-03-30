@@ -177,8 +177,7 @@ blackjack-counter/
 │   ├── Hand.cpp
 │   ├── HumanPlayer.cpp
 │   ├── Player.cpp
-│   ├── Shoe.cpp
-│   └── Test/            # Test files
+│   └── Shoe.cpp
 ├── tests/               # GoogleTest files
 │   └── unit/
 ├── CMakeLists.txt       # CMake configuration
