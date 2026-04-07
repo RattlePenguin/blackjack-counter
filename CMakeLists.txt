@@ -13,3 +13,20 @@ FetchContent_Declare(
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+# Include directories
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
+# Source files
+set(SOURCES
+    src/Card.cpp
+    src/Hand.cpp
+)
+
+# Unit tests
+enable_testing()
+
+# HandTest
+add_executable(HandTest tests/unit/HandTest.cpp ${SOURCES})
+target_link_libraries(HandTest GTest::gtest_main)
+add_test(NAME HandTest COMMAND HandTest)
