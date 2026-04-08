@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(my_project)
+project(blackjack-counter)
 
 # GoogleTest requires at least C++17
 set(CMAKE_CXX_STANDARD 17)
@@ -30,3 +30,6 @@ enable_testing()
 add_executable(HandTest tests/unit/HandTest.cpp ${SOURCES})
 target_link_libraries(HandTest GTest::gtest_main)
 add_test(NAME HandTest COMMAND HandTest)
+
+include(GoogleTest)
+gtest_discover_tests(hello_test)
