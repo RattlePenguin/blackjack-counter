@@ -126,7 +126,7 @@ void GameEngine::printHands() {
 
 bool GameEngine::dealerPreCheck() {
 	if (dealerHand->getCards().front().rank == Rank::ACE) {
-		std::cout << "[Dealer] Ace showing. Insurance? Y/N: ";
+		std::cout << "[Dealer] Ace showing. Insurance? Y/N: (WIP)\n";
 	}
 	
 	// Peek
@@ -277,6 +277,8 @@ void GameEngine::resolveRound() {
 			} else if (dealerHand->getRealValue() > h.getRealValue()) {
 				p->lose(h.getBet());
 				std::cout << "Lost " << h.getBet() << '\n';
+			} else {
+				std::cout << "Push, " << h.getBet() << " returned\n";
 			}
 		}
 	}
