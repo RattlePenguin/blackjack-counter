@@ -78,7 +78,7 @@ TEST_F(ShoeTest, needsShuffleAtPenetration) {
     Shoe shoe(1, 0.5, 42);  // Cut card at 26 cards (50% of 52)
     
     // Draw cards until we reach the cut card
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < 26; ++i) {
         EXPECT_FALSE(shoe.needsShuffle());
         shoe.draw();
     }
