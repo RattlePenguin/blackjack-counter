@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(blackjack-counter)
 
 # GoogleTest requires at least C++17
@@ -18,9 +19,8 @@ FetchContent_MakeAvailable(googletest)
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Source files
-set(SOURCES
-    src/Card.cpp
-    src/Hand.cpp
+file(GLOB SOURCES
+    "src/*.cpp"
 )
 
 # Unit tests
@@ -31,5 +31,8 @@ add_executable(HandTest tests/unit/HandTest.cpp ${SOURCES})
 target_link_libraries(HandTest GTest::gtest_main)
 add_test(NAME HandTest COMMAND HandTest)
 
-include(GoogleTest)
-gtest_discover_tests(hello_test)
+# ShoeTest
+add_executable(ShoeTest tests/unit/ShoeTest.cpp ${SOURCES})
+target_link_libraries(ShoeTest GTest::gtest_main)
+add_test(NAME ShoeTest COMMAND ShoeTest)
+
