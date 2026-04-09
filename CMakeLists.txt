@@ -36,3 +36,18 @@ add_executable(ShoeTest tests/unit/ShoeTest.cpp ${SOURCES})
 target_link_libraries(ShoeTest GTest::gtest_main)
 add_test(NAME ShoeTest COMMAND ShoeTest)
 
+# CardTest
+add_executable(CardTest tests/unit/CardTest.cpp ${SOURCES})
+target_link_libraries(CardTest GTest::gtest_main)
+add_test(NAME CardTest COMMAND CardTest)
+
+# PlayerTest
+add_executable(PlayerTest tests/unit/PlayerTest.cpp ${SOURCES})
+target_link_libraries(PlayerTest GTest::gtest_main)
+add_test(NAME PlayerTest COMMAND PlayerTest)
+
+# HumanPlayerTest
+add_executable(HumanPlayerTest tests/unit/HumanPlayerTest.cpp ${SOURCES})
+target_link_libraries(HumanPlayerTest GTest::gtest_main)
+add_test(NAME HumanPlayerTest COMMAND HumanPlayerTest)
+
