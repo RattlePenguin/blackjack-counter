@@ -1,4 +1,4 @@
-# Blackjack Advantage Trainer
+# :diamonds: Blackjack Advantage Trainer
 
 A C++ based blackjack trainer designed to teach advantage play techniques including card counting (Hi-Lo method) and basic strategy with deviations.
 
@@ -47,7 +47,7 @@ The `.clangd` configuration file automatically points to the `build/` directory 
 - Code formatting with clang-format
 - Static analysis and error detection
 
-## 🛠️ Installation
+## :gear: Installation
 
 ### Clone the Repository
 
@@ -72,7 +72,7 @@ cmake ..
 make
 ```
 
-## Usage
+## :computer: Usage
 
 ### Running the Game
 
