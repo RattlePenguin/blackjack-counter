@@ -19,7 +19,7 @@ void Shoe::initialise() {
 	cards.clear();
 	for (int d = 0; d < totalDecks; ++d) {
 		for (int s = 0; s < NUM_SUITS; ++s) {
-			for (int r = 0; r < NUM_RANKS; ++r) {
+			for (int r = 1; r <= NUM_RANKS; ++r) {
 				cards.push_back({ static_cast<Rank>(r), static_cast<Suit>(s), false });
 			}
 		}
