@@ -1,0 +1,3 @@
+# CMake and GTest files
+build/
+out/
