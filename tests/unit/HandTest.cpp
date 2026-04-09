@@ -4,8 +4,6 @@
 
 class HandTest : public testing::Test {
 protected:
-    void SetUp() override {}
-
     // Helper to create a card
     Card createCard(Rank rank, Suit suit = Suit::SPADES) {
         Card c;
@@ -590,12 +588,12 @@ TEST_F(HandTest, MultipleAcesScenario) {
     hand.addCard(createCard(Rank::ACE));
     
     EXPECT_EQ(hand.getTotalValue(), 22);  // Both aces as 11
-    EXPECT_EQ(hand.getRealValue(), 12);   // Both aces as 1
+    EXPECT_EQ(hand.getRealValue(), 12);   // One ace as 1 and other 11
     EXPECT_EQ(hand.getNumAces(), 2);
-    EXPECT_FALSE(hand.isSoft());  // No ace can be 11 without busting
+    EXPECT_TRUE(hand.isSoft());  // One ace is still 11
     
-    hand.addCard(createCard(Rank::TWO));
+    hand.addCard(createCard(Rank::KING));
     
-    EXPECT_EQ(hand.getRealValue(), 14);
-    EXPECT_TRUE(hand.isSoft());  // One ace can now be 11 (1+11+2=14)
+    EXPECT_EQ(hand.getRealValue(), 12);
+    EXPECT_FALSE(hand.isSoft()); // Both aces have to be 1 now
 }
