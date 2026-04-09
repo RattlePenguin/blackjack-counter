@@ -25,6 +25,28 @@ Counting cards is required to tip advantage over to the player instead.
 - **Make** or **CMake** for building
 - **GoogleTest** (optional, for running unit tests)
 
+## Development Setup
+
+### LSP/Editor Support
+
+For optimal development experience with clangd, clang-format, or other LSP tools:
+
+```bash
+# Create build directory and generate compile commands
+mkdir build
+cd build
+cmake ..
+
+# Return to project root
+cd ..
+```
+
+The `.clangd` configuration file automatically points to the `build/` directory for compile commands, enabling:
+- Autocomplete and go-to-definition
+- Real-time syntax checking
+- Code formatting with clang-format
+- Static analysis and error detection
+
 ## 🛠️ Installation
 
 ### Clone the Repository
