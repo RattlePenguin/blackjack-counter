@@ -1,4 +1,4 @@
-# :diamonds: Blackjack Advantage Trainer
+# :black_joker: Blackjack Advantage Trainer
 
 A C++ based blackjack trainer designed to teach advantage play techniques including card counting (Hi-Lo method) and basic strategy with deviations.
 
@@ -10,7 +10,7 @@ The trainer focuses on teaching the Hi-Lo counting method and basic strategy to 
 In a classic game of Blackjack, playing perfect basic strategy reduces the house edge to 0.5\%.
 Counting cards is required to tip advantage over to the player instead.
 
-## Key Features
+## :diamonds: Key Features
 
 - **Full Blackjack Simulation**: Complete game with standard rules
 - **Hi-Lo Card Counting**: Track running and true counts

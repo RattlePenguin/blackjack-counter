@@ -24,19 +24,40 @@ public:
 	 */
 	void shuffle();
 
-
+	/**
+	 *  Draws a card from the shoe and updates the system running count.
+	 *  If shoe is empty (dealing index past size), initialises again (but this shouldn't happen).
+	 */
 	Card draw();
+
+	/**
+	 *  Returns true if the cut card has been encountered.
+	 */
 	bool needsShuffle() const;
+
+	/**
+	 *  Returns the number of cards remaining in the shoe.
+	 */
 	int getCardsRemaining() const;
+
+	/**
+	 *  Evaluates and returns the number of decks remaining in play.
+	 */
 	double getDecksRemaining() const;
+
+	/**
+	 *  Getter for systemRunningCount.
+	 */
 	int getSystemRunningCount() const;
 
 private:
-	unsigned int seed {};
 	std::vector<Card> cards {};
-	int totalDecks {};
+	int totalDecks { 4 };
+	double penetration { 0.75 };
 	int cardsDealtIndex {};
-	int cutCardIndex {};
+	int cutCardIndex { 156 };
+	unsigned int seed {};
+
 	int systemRunningCount {};
 };
 
