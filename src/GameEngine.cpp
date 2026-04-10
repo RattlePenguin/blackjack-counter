@@ -36,6 +36,8 @@ void GameEngine::playRound() {
 	}
 
 	startHands();
+
+	std::cout << "----- HANDS -----\n";
 	printHands();
 	std::cout << '\n';
 	if (dealerPreCheck()) {
@@ -97,6 +99,8 @@ double parseBet() {
         if (!std::getline(std::cin >> std::ws, input)) {
 			return 0.0;
 		}
+
+		std::cout << '\n';
 
         std::stringstream ss(input);
         if (ss >> bet) {
@@ -171,6 +175,7 @@ bool GameEngine::doTurn(Player* p, Hand& currentHand) {
 				std::cout << "---> DOUBLE DOWN\n";
 				currentHand.doubleDown();
 				currentHand.addCard(shoe.draw());
+				printTurn(currentHand);
 				currentHand.finish();
 				break;
 			case Action::SPLIT: {
