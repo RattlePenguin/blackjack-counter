@@ -5,14 +5,14 @@
 
 int main() {
     std::cout << "========================================\n";
-    std::cout << "  Blackjack Advantage Trainer - v0.1\n";
+    std::cout << "  Blackjack Advantage Trainer - v0.2\n";
     std::cout << "========================================\n\n";
 
     // Initialize the engine with 2 decks, 75% pen
-    GameEngine engine(2, 0.75, 1);
+    GameEngine engine(2, 0.75, 0);
 
-    // Create our user. We dynamically allocate this so it matches the Player* // expected by engine.addPlayer(). 
-    // Note: If you separated HumanPlayer into HumanPlayer.h, make sure to #include it!
+    // Create our user.
+	// We dynamically allocate this so it matches the Player* expected by engine.addPlayer(). 
     Player* user = new HumanPlayer("CardCounter99");
 
     // Seat the player at the table
@@ -21,7 +21,7 @@ int main() {
     char playAgain = 'Y';
     int roundNumber = 1;
 
-    // The Core App Loop
+	// Core loop
     while (std::toupper(playAgain) == 'Y') {
         std::cout << "\n--- Round " << roundNumber << " ---\n";
         
