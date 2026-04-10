@@ -1,10 +1,7 @@
 #include <gtest/gtest.h>
 #include "Card.hpp"
 
-class CardTest : public ::testing::Test {
-protected:
-    CardTest() = default;
-};
+class CardTest : public ::testing::Test {};
 
 // Test default constructor values
 TEST_F(CardTest, DefaultConstructor) {
