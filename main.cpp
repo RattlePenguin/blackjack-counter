@@ -18,19 +18,15 @@ int main() {
     // Seat the player at the table
     engine.addPlayer(user);
 
-    char playAgain = 'Y';
     int roundNumber = 1;
 
 	// Core loop
-    while (std::toupper(playAgain) == 'Y') {
+    while (true) {
         std::cout << "\n--- Round " << roundNumber << " ---\n";
         
         // Run the game state machine
         engine.playRound();
 
-        // Check if user wants to keep going
-        std::cout << "\nPlay another round? (Y/N): ";
-        std::cin >> playAgain;
         roundNumber++;
     }
 
