@@ -55,3 +55,8 @@ add_executable(HumanPlayerTest tests/unit/HumanPlayerTest.cpp ${SOURCES})
 target_link_libraries(HumanPlayerTest GTest::gtest_main)
 add_test(NAME HumanPlayerTest COMMAND HumanPlayerTest)
 
+# GameEngineTest
+add_executable(GameEngineTest tests/unit/GameEngineTest.cpp ${SOURCES})
+target_link_libraries(GameEngineTest GTest::gmock_main GTest::gtest_main)
+add_test(NAME GameEngineTest COMMAND GameEngineTest)
+
