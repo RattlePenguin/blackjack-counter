@@ -199,21 +199,26 @@ void GameEngine::doAction(Action action, Player* p, size_t handIndex) {
 			break;
 		case Action::SPLIT: {
 			std::cout << "---> SPLIT\n";
-			Hand splitHand { p->startNewHand(currentHand.getBet()) };
-			Card splitCard { currentHand.pop_back() };
+			double bet = currentHand.getBet();
+			Hand& splitHand { p->startNewHand(bet) };
+			
+			// RE-ACQUIRE currentHand after startNewHand because of potential vector reallocation
+			Hand& curHand { p->hands[handIndex] };
+			
+			Card splitCard { curHand.pop_back() };
 			splitHand.addCard(splitCard);
-			currentHand.split();
+			curHand.split();
 			splitHand.split();
 			
 			// Hit each hand
-			currentHand.addCard(shoe.draw());
+			curHand.addCard(shoe.draw());
 			splitHand.addCard(shoe.draw());
 			
 			// Split Aces get one card only.
 			if (splitCard.rank == Rank::ACE) {
-				printTurn(currentHand);
+				printTurn(curHand);
 				printTurn(splitHand);
-				currentHand.finish();
+				curHand.finish();
 				splitHand.finish();
 			}
 			break;
