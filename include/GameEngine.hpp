@@ -56,7 +56,7 @@ private:
 	 *  Plays out the given hand.
 	 *  Returns true if currentHand is safe (not busted), else false.
 	 */
-	bool doTurn(Player* p, Hand& currentHand);
+	bool doTurn(Player* p, size_t handIndex);
 
 	/**
 	 *  Resolves round after all hands have been played.
@@ -70,7 +70,7 @@ private:
 	void printTurn(Hand& hand);
 
 
-	void doAction(Action action, Player* p, Hand& currentHand);
+	void doAction(Action action, Player* p, size_t handIndex);
 
 	/**
 	 *  Performs the dealer's turn.

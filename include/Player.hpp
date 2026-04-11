@@ -15,7 +15,7 @@ public:
 	virtual ~Player();
 	
 	void clearHands();
-	Hand startNewHand(double bet);
+	Hand& startNewHand(double bet);
 
 	std::string getName() const;
 	double getBankroll() const;
