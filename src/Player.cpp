@@ -7,7 +7,7 @@ Player::~Player() {}
 
 void Player::clearHands() { hands.clear(); }
 
-Hand Player::startNewHand(double bet) {
+Hand& Player::startNewHand(double bet) {
 	hands.push_back(Hand(bet));
 	return hands.back();
 }

@@ -55,7 +55,7 @@ bool Hand::isSoft() const {
 
 bool Hand::isTwoCards() const { return cards.size() == 2; }
 
-bool Hand::isPair() const { return isTwoCards() && cards[0].rank == cards[1].rank; }
+bool Hand::isPair() const { return isTwoCards() && cards[0].getValue() == cards[1].getValue(); }
 
 bool Hand::isBlackjack() const { return isTwoCards() && !isSplit && getTotalValue() == BLACKJACK_VALUE; }
 
