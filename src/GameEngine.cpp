@@ -48,9 +48,8 @@ void GameEngine::playRound() {
 	bool allBusted { true };
 	for (auto* p : players) {
 		// Dynamic sizing to allow splitting
-		for (int i = 0; i < static_cast<int>(p->hands.size()); ++i) {
-			Hand& currentHand { p->hands[static_cast<size_t>(i)] };
-			if (doTurn(p, currentHand)) allBusted = false;
+		for (size_t i = 0; i < p->hands.size(); ++i) {
+			if (doTurn(p, i)) allBusted = false;
 		}
 	}
 
@@ -141,10 +140,11 @@ bool GameEngine::dealerPreCheck() {
 	return false;
 }
 
-bool GameEngine::doTurn(Player* p, Hand& currentHand) {
+bool GameEngine::doTurn(Player* p, size_t handIndex) {
 	std::cout << "--- " << p->getName() << " TURN ---\n";
 	bool busted { false };
-	while (!currentHand.isFinished()) {
+	while (!p->hands[handIndex].isFinished()) {
+		Hand& currentHand = p->hands[handIndex];
 		printTurn(currentHand);
 		
 		if (currentHand.getRealValue() > 21) {
@@ -165,7 +165,7 @@ bool GameEngine::doTurn(Player* p, Hand& currentHand) {
 
 		Action action { p->makeDecision(currentHand, rules) };
 		
-		doAction(action, p, currentHand);
+		doAction(action, p, handIndex);
 		std::cout << '\n';
 	}
 	return !busted;
@@ -178,7 +178,8 @@ void GameEngine::printTurn(Hand& hand) {
 	hand.printHand();
 }
 
-void GameEngine::doAction(Action action, Player* p, Hand& currentHand) {
+void GameEngine::doAction(Action action, Player* p, size_t handIndex) {
+	Hand& currentHand = p->hands[handIndex];
 	switch (action) {
 		case Action::HIT:
 			std::cout << "---> HIT\n";
