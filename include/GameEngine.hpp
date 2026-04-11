@@ -69,6 +69,9 @@ private:
 	 */
 	void printTurn(Hand& hand);
 
+
+	void doAction(Action action, Player* p, Hand& currentHand);
+
 	/**
 	 *  Performs the dealer's turn.
 	 *  Called after every player's hand is finished.

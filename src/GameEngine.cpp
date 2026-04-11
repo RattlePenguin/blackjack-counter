@@ -150,59 +150,22 @@ bool GameEngine::doTurn(Player* p, Hand& currentHand) {
 		if (currentHand.getRealValue() > 21) {
 			std::cout << "---> BUSTED\n";
 			busted = true;
-			currentHand.finish(); // TODO Bet should be collected here
+
+			p->lose(currentHand.getBet());
+			currentHand.zeroBet();
+			currentHand.finish();
 			break;
 		}
 
 		if (currentHand.isBlackjack()) {
 			std::cout << "---> BLACKJACK!\n";
-			currentHand.finish(); // TODO Bet should be paid out here 3:2 odds
+			currentHand.finish();
 			break;
 		}
 
 		Action action { p->makeDecision(currentHand, rules) };
-
-		switch (action) {
-			case Action::HIT:
-				std::cout << "---> HIT\n";
-				currentHand.addCard(shoe.draw());
-				break;
-			case Action::STAND:
-				std::cout << "---> STAND\n";
-				currentHand.finish();
-				break;
-			case Action::DOUBLE:
-				std::cout << "---> DOUBLE DOWN\n";
-				currentHand.doubleDown();
-				currentHand.addCard(shoe.draw());
-				printTurn(currentHand);
-				currentHand.finish();
-				break;
-			case Action::SPLIT: {
-				std::cout << "---> SPLIT\n";
-				Hand splitHand { p->startNewHand(currentHand.getBet()) };
-				Card splitCard { currentHand.pop_back() };
-				splitHand.addCard(splitCard);
-				currentHand.split();
-				splitHand.split();
-				
-				// Hit each hand
-				currentHand.addCard(shoe.draw());
-				splitHand.addCard(shoe.draw());
-				
-				// Split Aces get one card only.
-				if (splitCard.rank == Rank::ACE) {
-					currentHand.finish();
-					splitHand.finish();
-				}
-				break;
-			}
-			case Action::SURRENDER:
-				std::cout << "---> SURRENDER\n";
-				currentHand.surrender();
-				currentHand.finish();
-				break;
-		}
+		
+		doAction(action, p, currentHand);
 		std::cout << '\n';
 	}
 	return !busted;
@@ -213,6 +176,54 @@ void GameEngine::printTurn(Hand& hand) {
 	dealerHand->printHand();
 	std::cout << "Your Hand: ";
 	hand.printHand();
+}
+
+void GameEngine::doAction(Action action, Player* p, Hand& currentHand) {
+	switch (action) {
+		case Action::HIT:
+			std::cout << "---> HIT\n";
+			currentHand.addCard(shoe.draw());
+			break;
+		case Action::STAND:
+			std::cout << "---> STAND\n";
+			printTurn(currentHand);
+			currentHand.finish();
+			break;
+		case Action::DOUBLE:
+			std::cout << "---> DOUBLE DOWN\n";
+			currentHand.doubleDown();
+			currentHand.addCard(shoe.draw());
+			printTurn(currentHand);
+			currentHand.finish();
+			break;
+		case Action::SPLIT: {
+			std::cout << "---> SPLIT\n";
+			Hand splitHand { p->startNewHand(currentHand.getBet()) };
+			Card splitCard { currentHand.pop_back() };
+			splitHand.addCard(splitCard);
+			currentHand.split();
+			splitHand.split();
+			
+			// Hit each hand
+			currentHand.addCard(shoe.draw());
+			splitHand.addCard(shoe.draw());
+			
+			// Split Aces get one card only.
+			if (splitCard.rank == Rank::ACE) {
+				printTurn(currentHand);
+				printTurn(splitHand);
+				currentHand.finish();
+				splitHand.finish();
+			}
+			break;
+		}
+		case Action::SURRENDER:
+			std::cout << "---> SURRENDER\n";
+			currentHand.surrender();
+			printTurn(currentHand);
+			currentHand.finish();
+			break;
+	}
 }
 
 void GameEngine::dealerTurn() {
@@ -253,8 +264,8 @@ void GameEngine::resolveRound() {
 			std::cout << "Hand: ";
 			h.printHand();
 
-			if (h.isSurrendered() || h.isBusted()) {
-				std::cout << "Lost " << h.getBet() << '\n';
+			if (h.isSurrendered()) {
+				std::cout << "Surrendered" << h.getBet() << '\n';
 				p->lose(h.getBet());
 				continue;
 			}
