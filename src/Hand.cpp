@@ -5,24 +5,14 @@
 const int BLACKJACK_VALUE { 21 };
 const int ACE_DIFF_VALUE { 10 };
 
-// Constructor
 Hand::Hand(double initialBet) : bet { initialBet } {}
 
-/**
- *  Adds a given card to the Hand.
- */
 void Hand::addCard(Card c) {
 	cards.push_back(c);
 }
 
-/**
- *  Accessor for cards
- */
 std::vector<Card>& Hand::getCards() { return cards; }
 
-/**
- *  Returns the total value of the Hand, with all Aces at 11.
- */
 int Hand::getTotalValue() const {
 	int total { 0 };
 	for (const Card& c : cards) {
@@ -31,9 +21,6 @@ int Hand::getTotalValue() const {
 	return total;
 }
 
-/**
- *  Returns the number of Aces in the Hand.
- */
 int Hand::getNumAces() const {
 	int numAces { 0 };
 	for (const Card& c : cards) {
@@ -42,11 +29,6 @@ int Hand::getNumAces() const {
 	return numAces;
 }
 
-
-/**
- *  Returns the play value of the Hand.
- *  I.e. highest possible value under 21. Aces are counted as 11 until they need to be 1.
- */
 int Hand::getRealValue() const {
 	int total { getTotalValue() };
 	int numAces { getNumAces() };
@@ -60,9 +42,6 @@ int Hand::getRealValue() const {
 
 double Hand::getBet() const { return bet; }
 
-/**
- *  Returns whether the Hand is soft, i.e. an Ace is presently acting as an 11.
- */
 bool Hand::isSoft() const {
 	int total { getTotalValue() };
 	int numAces { getNumAces() };
@@ -111,6 +90,8 @@ void Hand::doubleDown() {
 }
 
 void Hand::split() { isSplit = true; }
+
+void Hand::zeroBet() { bet = 0.0; }
 
 Card Hand::pop_back() {
 	Card card { cards.back() };

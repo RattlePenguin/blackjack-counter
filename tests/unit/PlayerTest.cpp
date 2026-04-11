@@ -185,7 +185,7 @@ TEST_F(PlayerTest, MakeDecisionCalled) {
     hand.addCard(ten);
     
     // Create minimal rules for testing
-    BlackjackRules rules;
+    BlackjackRules rules {};
     
     // Call makeDecision - should return STAND (our default implementation)
     Action action = p.makeDecision(hand, rules);
