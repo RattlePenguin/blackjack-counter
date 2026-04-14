@@ -11,7 +11,14 @@ void Hand::addCard(Card c) {
 	cards.push_back(c);
 }
 
-std::vector<Card>& Hand::getCards() { return cards; }
+const std::vector<Card>& Hand::getCards() const {
+	return cards;
+}
+
+std::vector<Card>& Hand::getCards() {
+	return cards;
+}
+
 
 int Hand::getTotalValue() const {
 	int total { 0 };

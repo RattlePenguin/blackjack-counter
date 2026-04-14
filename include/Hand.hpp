@@ -17,6 +17,7 @@ public:
 	/**
 	 *  Getter for cards
 	 */
+	const std::vector<Card>& getCards() const;
 	std::vector<Card>& getCards();
 
 	/**
