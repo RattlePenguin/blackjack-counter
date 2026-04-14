@@ -1,5 +1,6 @@
 #include "HumanPlayer.hpp"
 #include <iostream>
+#include <iomanip>
 
 HumanPlayer::HumanPlayer(std::string name) : Player(name) {}
 
@@ -7,10 +8,16 @@ HumanPlayer::HumanPlayer(std::string name) : Player(name) {}
  *  Returns the HumanPlayer's Action depending on user input.
  *  Verifies whether or not action is valid.
  */
-Action HumanPlayer::makeDecision(const Hand& currentHand, const BlackjackRules& rules) {
+Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCard, const BlackjackRules& rules) {
 	bool isTwoCards { currentHand.isTwoCards() };
 	bool isPair { currentHand.isPair() };
-	
+
+    Action recommended = StrategyAdvisor::getRecommendedAction(currentHand, dealerUpCard, rules);
+
+    if (showHints) {
+        std::cout << "[HINT] Recommended Move: " << StrategyAdvisor::actionToString(recommended) << "\n";
+    }
+
 	while (true) {
 		std::cout << "h: hit\n";
 		std::cout << "s: stand\n";
