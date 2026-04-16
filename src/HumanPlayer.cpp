@@ -26,18 +26,42 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
 			return Action::STAND;
 		}
 
+        Action chosen;
 		if (input == "h" || input == "H") {
-			return Action::HIT;
+			chosen = Action::HIT;
 		} else if (input == "s" || input == "S") {
-			return Action::STAND;
+			chosen = Action::STAND;
 		} else if ((input == "d" || input == "D") && isTwoCards) {
-			return Action::DOUBLE;
+			chosen = Action::DOUBLE;
 		} else if ((input == "t" || input == "T") && isPair) {
-			return Action::SPLIT;
+			chosen = Action::SPLIT;
 		} else if ((input == "y" || input == "Y") && isTwoCards) {
-			return Action::SURRENDER;
-		}
-		std::cout << "Invalid Action!\n";
+			chosen = Action::SURRENDER;
+		} else {
+            std::cout << "Invalid Action!\n";
+            continue;
+        }
+
+        // Track strategy
+        strategyRecords.push_back({
+            currentHand.getRealValue(),
+            currentHand.isSoft(),
+            currentHand.isPair(),
+            dealerUpCard,
+            chosen,
+            recommended,
+            chosen == recommended
+        });
+
+        if (showHints) {
+            if (chosen != recommended) {
+                std::cout << "Actually, " << StrategyAdvisor::actionToString(recommended) << " would have been better.\n";
+            } else {
+                std::cout << "Correct move!\n";
+            }
+        }
+
+        return chosen;
 	}
 }
 
