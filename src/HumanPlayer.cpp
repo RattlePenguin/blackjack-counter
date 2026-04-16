@@ -14,10 +14,6 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
 
     Action recommended = StrategyAdvisor::getRecommendedAction(currentHand, dealerUpCard, rules);
 
-    if (showHints) {
-        std::cout << "[HINT] Recommended Move: " << StrategyAdvisor::actionToString(recommended) << "\n";
-    }
-
 	while (true) {
 		std::cout << "h: hit\n";
 		std::cout << "s: stand\n";
