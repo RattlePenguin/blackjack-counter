@@ -9,7 +9,7 @@ class TestPlayer : public Player {
 public:
     TestPlayer(const std::string& name) : Player(name) {}
     
-    Action makeDecision(const Hand& currentHand, const BlackjackRules& rules) override {
+    Action makeDecision(const Hand& currentHand, const Card& dealerUpCard, const BlackjackRules& rules) override {
         return Action::STAND;  // Default action for testing
     }
 };
@@ -187,8 +187,11 @@ TEST_F(PlayerTest, MakeDecisionCalled) {
     // Create minimal rules for testing
     BlackjackRules rules {};
     
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+
     // Call makeDecision - should return STAND (our default implementation)
-    Action action = p.makeDecision(hand, rules);
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::STAND);
 }
 

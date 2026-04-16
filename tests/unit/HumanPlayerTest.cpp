@@ -61,9 +61,11 @@ TEST_F(HumanPlayerTest, MakeDecisionHit) {
     hand.addCard(card2);
     
     BlackjackRules rules;
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
     
     setInput("h");
-    Action action = p.makeDecision(hand, rules);
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::HIT);
 }
 
@@ -81,9 +83,11 @@ TEST_F(HumanPlayerTest, MakeDecisionHitLowercase) {
     hand.addCard(card2);
     
     BlackjackRules rules;
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
     
     setInput("h");
-    Action action = p.makeDecision(hand, rules);
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::HIT);
 }
 
@@ -103,7 +107,9 @@ TEST_F(HumanPlayerTest, MakeDecisionHitUppercase) {
     BlackjackRules rules;
     
     setInput("H");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::HIT);
 }
 
@@ -123,7 +129,9 @@ TEST_F(HumanPlayerTest, MakeDecisionStand) {
     BlackjackRules rules;
     
     setInput("s");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::STAND);
 }
 
@@ -143,7 +151,9 @@ TEST_F(HumanPlayerTest, MakeDecisionStandUppercase) {
     BlackjackRules rules;
     
     setInput("S");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::STAND);
 }
 
@@ -163,7 +173,9 @@ TEST_F(HumanPlayerTest, MakeDecisionDoubleWhenAllowed) {
     BlackjackRules rules;
     
     setInput("d");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::DOUBLE);
 }
 
@@ -183,7 +195,9 @@ TEST_F(HumanPlayerTest, MakeDecisionDoubleUppercase) {
     BlackjackRules rules;
     
     setInput("D");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::DOUBLE);
 }
 
@@ -203,7 +217,9 @@ TEST_F(HumanPlayerTest, MakeDecisionSplitWhenPair) {
     BlackjackRules rules;
     
     setInput("t");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::SPLIT);
 }
 
@@ -223,7 +239,9 @@ TEST_F(HumanPlayerTest, MakeDecisionSplitUppercase) {
     BlackjackRules rules;
     
     setInput("T");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::SPLIT);
 }
 
@@ -244,7 +262,9 @@ TEST_F(HumanPlayerTest, MakeDecisionSurrenderWhenAllowed) {
     rules.surrenderAllowed = true;
     
     setInput("y");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::SURRENDER);
 }
 
@@ -265,7 +285,9 @@ TEST_F(HumanPlayerTest, MakeDecisionSurrenderUppercase) {
     rules.surrenderAllowed = true;
     
     setInput("Y");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::SURRENDER);
 }
 
@@ -286,7 +308,9 @@ TEST_F(HumanPlayerTest, InvalidInputThenValid) {
     
     // Invalid input first, then valid
     setInput("x\nh");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::HIT);
 }
 
@@ -312,7 +336,9 @@ TEST_F(HumanPlayerTest, DoubleNotAvailableWithThreeCards) {
     // Try to double with 3 cards - should fall through to invalid
     // Then provide valid hit
     setInput("d\nh");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::HIT);
 }
 
@@ -334,7 +360,9 @@ TEST_F(HumanPlayerTest, SplitNotAvailableWhenNotPair) {
     // Try to split non-pair - should fall through to invalid
     // Then provide valid stand
     setInput("t\ns");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::STAND);
 }
 
@@ -355,7 +383,9 @@ TEST_F(HumanPlayerTest, MakeDecisionOnEOFReturnsStand) {
     
     // Empty input (EOF)
     setInput("");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::STAND);
 }
 
@@ -376,7 +406,9 @@ TEST_F(HumanPlayerTest, CaseInsensitivity) {
     
     // Test all uppercase
     setInput("H");
-    EXPECT_EQ(p.makeDecision(hand, rules), Action::HIT);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    EXPECT_EQ(p.makeDecision(hand, dealerUp, rules), Action::HIT);
     
     // Create new hand for next test
     Hand hand2(10.0);
@@ -384,7 +416,7 @@ TEST_F(HumanPlayerTest, CaseInsensitivity) {
     hand2.addCard(card2);
     
     setInput("S");
-    EXPECT_EQ(p.makeDecision(hand2, rules), Action::STAND);
+    EXPECT_EQ(p.makeDecision(hand2, dealerUp, rules), Action::STAND);
 }
 
 // Test with whitespace in input
@@ -404,6 +436,8 @@ TEST_F(HumanPlayerTest, WhitespaceHandling) {
     
     // Input with leading whitespace
     setInput("   h");
-    Action action = p.makeDecision(hand, rules);
+    Card dealerUp;
+    dealerUp.rank = Rank::SIX;
+    Action action = p.makeDecision(hand, dealerUp, rules);
     EXPECT_EQ(action, Action::HIT);
 }

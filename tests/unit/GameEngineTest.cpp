@@ -19,7 +19,8 @@ public:
     
     MockPlayer(const std::string& name) : Player(name) {}
     
-    Action makeDecision(const Hand& currentHand, const BlackjackRules& rules) override {
+    Action makeDecision(const Hand& currentHand, const Card& dealerUpCard, const BlackjackRules& rules) override {
+        (void)dealerUpCard; // Suppress unused parameter warning
         decisionCount++;
         // Auto-stand after a few hits to prevent infinite loops
         if (decisionCount > 10) {
