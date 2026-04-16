@@ -152,6 +152,7 @@ bool GameEngine::doTurn(Player* p, size_t handIndex) {
 			busted = true;
 
 			p->lose(currentHand.getBet());
+			std::cout << "Lost " << currentHand.getBet() << '\n';
 			currentHand.zeroBet();
 			currentHand.finish();
 			break;
@@ -163,7 +164,7 @@ bool GameEngine::doTurn(Player* p, size_t handIndex) {
 			break;
 		}
 
-		Action action { p->makeDecision(currentHand, rules) };
+		Action action { p->makeDecision(currentHand, dealerHand->getCards().front(), rules) };
 		
 		doAction(action, p, handIndex);
 		std::cout << '\n';
@@ -269,6 +270,8 @@ void GameEngine::resolveRound() {
 		for (const Hand& h : p->hands) {
 			std::cout << "Hand: ";
 			h.printHand();
+
+			if (h.isBusted()) continue;
 
 			if (h.isSurrendered()) {
 				std::cout << "Surrendered" << h.getBet() << '\n';
