@@ -18,6 +18,23 @@ int main() {
     // Seat the player at the table
     engine.addPlayer(user);
 
+    std::cout << "Show strategy hints during play? (y/n): ";
+    std::string hintChoice;
+    if (std::getline(std::cin >> std::ws, hintChoice)) {
+        if (hintChoice == "y" || hintChoice == "Y") {
+            static_cast<HumanPlayer*>(user)->setHints(true);
+        }
+    }
+
+    bool showSummary = true;
+    std::cout << "Show strategy summary at end of session? (y/n): ";
+    std::string summaryChoice;
+    if (std::getline(std::cin >> std::ws, summaryChoice)) {
+        if (summaryChoice == "n" || summaryChoice == "N") {
+            showSummary = false;
+        }
+    }
+
     int roundNumber = 1;
 
 	// Core loop
@@ -28,11 +45,20 @@ int main() {
         engine.playRound();
 
         roundNumber++;
+
+        std::cout << "\nPlay another round? (y/n): ";
+        std::string choice;
+        if (!std::getline(std::cin >> std::ws, choice) || choice == "n" || choice == "N") {
+            break;
+        }
     }
 
     // Wrap up
     std::cout << "\nSession ended.\n";
-    std::cout << user->getName() << "'s Final P/L Bankroll: $" << user->getBankroll() << "\n";
+    if (showSummary) {
+        static_cast<HumanPlayer*>(user)->printStrategySummary();
+    }
+    std::cout << "\n" << user->getName() << "'s Final P/L Bankroll: $" << user->getBankroll() << "\n";
 
     // Clean up our dynamically allocated memory to prevent leaks
     delete user;
