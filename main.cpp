@@ -8,8 +8,8 @@ int main() {
     std::cout << "  Blackjack Advantage Trainer - v0.2\n";
     std::cout << "========================================\n\n";
 
-    // Initialize the engine with 2 decks, 75% pen
-    GameEngine engine(2, 0.75, 42);
+    // Initialize the engine with 2 decks, 75% pen, random seed
+    GameEngine engine(2, 0.75, 0);
 
     // Create our user.
 	// We dynamically allocate this so it matches the Player* expected by engine.addPlayer(). 
