@@ -1,9 +1,11 @@
 #include <iostream>
 #include <sstream>
+#include <iomanip>
 
 #include "GameEngine.hpp"
+#include "StrategyAdvisor.hpp"
 
-double parseBet();
+double parseBet(int runningCount, double decksRemaining);
 
 GameEngine::GameEngine(int numDecks, double penetration, unsigned int seed)
 	: shoe(numDecks, penetration, seed)
@@ -78,7 +80,7 @@ void GameEngine::startHands() {
 
 			if (i == 0) {
 				if (j == 0) {
-					p->startNewHand(parseBet());
+					p->startNewHand(parseBet(shoe.getSystemRunningCount(), shoe.getDecksRemaining()));
 				} else {
 					p->startNewHand(10.0);
 				}
@@ -99,11 +101,17 @@ void GameEngine::startHands() {
 /**
  *  Parses a string input into a double and returns it.
  */
-double parseBet() {
+double parseBet(int runningCount, double decksRemaining) {
 	double bet { -1 };
     std::string input;
     bool valid = false;
+
+    double recommended = StrategyAdvisor::getRecommendedBet(runningCount, decksRemaining, 10.0);
+    double trueCount = (decksRemaining > 0) ? static_cast<double>(runningCount) / decksRemaining : 0;
+
     while (!valid) {
+        std::cout << "[COUNT] Running: " << runningCount << " | True: " << std::fixed << std::setprecision(2) << trueCount << "\n";
+        std::cout << "[HINT] Recommended Bet: $" << recommended << "\n";
 		std::cout << "Enter your bet: ";
         if (!std::getline(std::cin >> std::ws, input)) {
 			return 0.0;
@@ -119,6 +127,11 @@ double parseBet() {
             if (ss >> remaining) {
                 std::cout << "Invalid input." << std::endl;
             } else {
+                if (bet != recommended) {
+                    std::cout << "[HINT] Actually, $" << recommended << " would be a better bet based on the count.\n";
+                } else {
+                    std::cout << "Correct bet size!\n";
+                }
                 valid = true;
             }
         } else {
