@@ -23,6 +23,16 @@ public:
 	 */
 	void playRound();
 
+    /**
+     *  Returns the current running count from the shoe.
+     */
+    int getRunningCount() const;
+
+    /**
+     *  Returns the current true count.
+     */
+    double getTrueCount() const;
+
 private:
 	Shoe shoe;
 	BlackjackRules rules {};
