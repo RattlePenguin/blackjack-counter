@@ -28,6 +28,11 @@ public:
 	 */
     static std::string actionToString(Action action);
 
+    /**
+     *  Returns the recommended bet based on the True Count.
+     */
+    static double getRecommendedBet(int runningCount, double decksRemaining, double unitBet);
+
 private:
 	/**
 	 *  Returns the recommended action given the player's current hand as a hard value.

@@ -31,6 +31,19 @@ std::string StrategyAdvisor::actionToString(Action action) {
     }
 }
 
+double StrategyAdvisor::getRecommendedBet(int runningCount, double decksRemaining, double unitBet) {
+    if (decksRemaining <= 0) return unitBet;
+    
+    double trueCount = static_cast<double>(runningCount) / decksRemaining;
+    
+    if (trueCount <= 1.0) return unitBet;
+    if (trueCount < 2.0) return unitBet; 
+    if (trueCount < 3.0) return unitBet * 2;
+    if (trueCount < 4.0) return unitBet * 4;
+    if (trueCount < 5.0) return unitBet * 8;
+    return unitBet * 12;
+}
+
 Action StrategyAdvisor::getHardAction(int value, int dealerValue, const BlackjackRules& rules, bool canDouble, bool canSurrender) {
     if (canSurrender) {
         if (value == 16 && (dealerValue >= 9)) return Action::SURRENDER;
