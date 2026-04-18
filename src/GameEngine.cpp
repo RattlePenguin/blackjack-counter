@@ -28,6 +28,16 @@ void GameEngine::addPlayer(Player* p) {
 	players.push_back(p);
 }
 
+int GameEngine::getRunningCount() const {
+    return shoe.getSystemRunningCount();
+}
+
+double GameEngine::getTrueCount() const {
+    double decks = shoe.getDecksRemaining();
+    if (decks <= 0) return 0;
+    return static_cast<double>(getRunningCount()) / decks;
+}
+
 void GameEngine::playRound() {
 	// Shuffle shoe if necessary.
 	if (shoe.needsShuffle()) {
