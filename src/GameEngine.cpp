@@ -164,6 +164,11 @@ bool GameEngine::doTurn(Player* p, size_t handIndex) {
 			break;
 		}
 
+		if (currentHand.isDoubled()) {
+			currentHand.finish();
+			break;
+		}
+
 		Action action { p->makeDecision(currentHand, dealerHand->getCards().front(), rules) };
 		
 		doAction(action, p, handIndex);
@@ -195,8 +200,6 @@ void GameEngine::doAction(Action action, Player* p, size_t handIndex) {
 			std::cout << "---> DOUBLE DOWN\n";
 			currentHand.doubleDown();
 			currentHand.addCard(shoe.draw());
-			printTurn(currentHand);
-			currentHand.finish();
 			break;
 		case Action::SPLIT: {
 			std::cout << "---> SPLIT\n";
