@@ -110,8 +110,8 @@ double parseBet(int runningCount, double decksRemaining) {
     double trueCount = (decksRemaining > 0) ? static_cast<double>(runningCount) / decksRemaining : 0;
 
     while (!valid) {
-        std::cout << "[COUNT] Running: " << runningCount << " | True: " << std::fixed << std::setprecision(2) << trueCount << "\n";
-        std::cout << "[HINT] Recommended Bet: $" << recommended << "\n";
+		if (showCount) std::cout << "[COUNT] Running: " << runningCount << " | True: " << std::fixed << std::setprecision(2) << trueCount << "\n";
+        if (showRecommendedBet) std::cout << "[HINT] Recommended Bet: $" << recommended << "\n";
 		std::cout << "Enter your bet: ";
         if (!std::getline(std::cin >> std::ws, input)) {
 			return 0.0;
