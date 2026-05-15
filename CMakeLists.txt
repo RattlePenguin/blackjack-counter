@@ -25,6 +25,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Source files
 file(GLOB SOURCES
     "src/*.cpp"
+	"main.cpp"
 )
 
 # Unit tests
