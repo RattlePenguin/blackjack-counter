@@ -1,7 +1,3 @@
-Dealer shouldn't still play turn after player busts.
-Bugs on standard gameplay loop. A lot of printing issues, maybe replace all \n with endl for now.
-Sometimes card doesn't print, maybe because of the empty string I put?
-Surrender doesn't halve losses.
-
-Format prints better, more spaces and between turns.
+StrategyAdvisor needs to keep track of bets as well, for counting hints.
+GameEngine shouldn't handle hint conditionals, should be done in HumanPlayer just like strategy hints.
 
