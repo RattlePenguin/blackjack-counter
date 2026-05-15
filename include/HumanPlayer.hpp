@@ -14,13 +14,16 @@ public:
 	HumanPlayer(std::string name);
 	Action makeDecision(const Hand& currentHand, const Card& dealerUpCard, const BlackjackRules& rules) override;
 	
-	void setHints(bool show);
-	bool getHints() const;
+	void setStrategyHints(bool show);
+	bool getStrategyHints() const;
+	void setCountingHints(bool show);
+	bool getCountingHints() const;
 	void printStrategySummary() const;
 	void clearStrategyRecords();
 
 private:
-	bool showHints { false };
+	bool showStrategyHints { false };
+	bool showCountingHints { false };
 	std::vector<StrategyRecord> strategyRecords {};
 };
 

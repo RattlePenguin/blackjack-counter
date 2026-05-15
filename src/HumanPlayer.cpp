@@ -53,7 +53,7 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
             chosen == recommended
         });
 
-        if (showHints) {
+        if (showStrategyHints) {
             if (chosen != recommended) {
                 std::cout << "Actually, " << StrategyAdvisor::actionToString(recommended) << " would have been better.\n";
             } else {
@@ -65,8 +65,10 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
 	}
 }
 
-void HumanPlayer::setHints(bool show) { showHints = show; }
-bool HumanPlayer::getHints() const { return showHints; }
+void HumanPlayer::setStrategyHints(bool show) { showStrategyHints = show; }
+bool HumanPlayer::getStrategyHints() const { return showStrategyHints; }
+void HumanPlayer::setCountingHints(bool show) { showCountingHints = show; }
+bool HumanPlayer::getCountingHints() const { return showCountingHints; }
 
 void HumanPlayer::printStrategySummary() const {
     if (strategyRecords.empty()) {
