@@ -13,7 +13,7 @@ int main() {
 
     // Create our user.
 	// We dynamically allocate this so it matches the Player* expected by engine.addPlayer(). 
-    Player* user = new HumanPlayer("CardCounter99");
+    Player* user = new HumanPlayer("CardCounter99"); // change to unique ptr
 
     // Seat the player at the table
     engine.addPlayer(user);
