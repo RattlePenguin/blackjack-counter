@@ -22,7 +22,14 @@ int main() {
     std::string hintChoice;
     if (std::getline(std::cin >> std::ws, hintChoice)) {
         if (hintChoice == "y" || hintChoice == "Y") {
-            static_cast<HumanPlayer*>(user)->setHints(true);
+            static_cast<HumanPlayer*>(user)->setStrategyHints(true);
+        }
+    }
+
+    std::cout << "Show counting hints during play? (y/n): ";
+    if (std::getline(std::cin >> std::ws, hintChoice)) {
+        if (hintChoice == "y" || hintChoice == "Y") {
+            static_cast<HumanPlayer*>(user)->setCountingHints(true);
         }
     }
 

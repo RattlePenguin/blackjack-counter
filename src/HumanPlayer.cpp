@@ -26,17 +26,17 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
 			return Action::STAND;
 		}
 
-        Action chosen;
+        Action chosenAction;
 		if (input == "h" || input == "H") {
-			chosen = Action::HIT;
+			chosenAction = Action::HIT;
 		} else if (input == "s" || input == "S") {
-			chosen = Action::STAND;
+			chosenAction = Action::STAND;
 		} else if ((input == "d" || input == "D") && isTwoCards) {
-			chosen = Action::DOUBLE;
+			chosenAction = Action::DOUBLE;
 		} else if ((input == "t" || input == "T") && isPair) {
-			chosen = Action::SPLIT;
+			chosenAction = Action::SPLIT;
 		} else if ((input == "y" || input == "Y") && isTwoCards) {
-			chosen = Action::SURRENDER;
+			chosenAction = Action::SURRENDER;
 		} else {
             std::cout << "Invalid Action!\n";
             continue;
@@ -48,18 +48,24 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
             currentHand.isSoft(),
             currentHand.isPair(),
             dealerUpCard,
-            chosen,
-            recommended,
-            chosen == recommended
+            chosenAction,
+            recommendedAction,
+            chosenAction == recommendedAction
         });
 
         if (showStrategyHints) {
-            if (chosen != recommended) {
-                std::cout << "Actually, " << StrategyAdvisor::actionToString(recommended) << " would have been better.\n";
+            if (chosenAction != recommendedAction) {
+                std::cout << "Actually, " << StrategyAdvisor::actionToString(recommendedAction) << " would have been better.\n";
             } else {
                 std::cout << "Correct move!\n";
             }
         }
+
+		if (showCountingHints) {
+
+			double recommendedBet = StrategyAdvisor::getRecommendedBet(runningCount, decksRemaining, 10.0);
+			double trueCount = (decksRemaining > 0) ? static_cast<double>(runningCount) / decksRemaining : 0;
+		}
 
         return chosen;
 	}
