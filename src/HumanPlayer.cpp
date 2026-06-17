@@ -63,7 +63,6 @@ Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCa
 
 		if (showCountingHints) {
 			double recommendedBet = StrategyAdvisor::getRecommendedBet(shoe.getSystemRunningCount(), shoe.getDecksRemaining(), 10.0);
-			double trueCount = (shoe.getDecksRemaining() > 0) ? static_cast<double>(shoe.getSystemRunningCount()) / shoe.getDecksRemaining() : 0;
 
 			if (currentHand.getBet() != recommendedBet) {
                 std::cout << "Actually, betting " << recommendedBet << " would have been better.\n";

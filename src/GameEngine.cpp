@@ -107,7 +107,6 @@ double parseBet(int runningCount, double decksRemaining) {
     bool valid = false;
 
     double recommended = StrategyAdvisor::getRecommendedBet(runningCount, decksRemaining, 10.0);
-    double trueCount = (decksRemaining > 0) ? static_cast<double>(runningCount) / decksRemaining : 0;
 
     while (!valid) {
 		std::cout << "Enter your bet: ";
