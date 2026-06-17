@@ -192,7 +192,7 @@ bool GameEngine::doTurn(Player* p, size_t handIndex) {
 			break;
 		}
 
-		Action action { p->makeDecision(currentHand, dealerHand->getCards().front(), rules) };
+		Action action { p->makeDecision(currentHand, dealerHand->getCards().front(), rules, shoe) };
 		
 		doAction(action, p, handIndex);
 		std::cout << '\n';

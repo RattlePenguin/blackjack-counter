@@ -8,11 +8,11 @@ HumanPlayer::HumanPlayer(std::string name) : Player(name) {}
  *  Returns the HumanPlayer's Action depending on user input.
  *  Verifies whether or not action is valid.
  */
-Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCard, const BlackjackRules& rules) {
+Action HumanPlayer::makeDecision(const Hand& currentHand, const Card& dealerUpCard, const BlackjackRules& rules, const Shoe& shoe) {
 	bool isTwoCards { currentHand.isTwoCards() };
 	bool isPair { currentHand.isPair() };
 
-    Action recommended = StrategyAdvisor::getRecommendedAction(currentHand, dealerUpCard, rules);
+    Action recommendedAction = StrategyAdvisor::getRecommendedAction(currentHand, dealerUpCard, rules);
 
 	while (true) {
 		std::cout << "h: hit\n";
